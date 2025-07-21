@@ -34,7 +34,7 @@ export default async function RootLayout({ children, params }: Readonly<Props>) 
   const { locale } = await params
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
       <body className={`${lato.variable} antialiased`}>{children}</body>
     </html>
   )
