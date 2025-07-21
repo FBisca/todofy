@@ -4,7 +4,7 @@ import { match as matchLocale } from '@formatjs/intl-localematcher'
 import Negotiator from 'negotiator'
 
 const languageHeader = 'X-Language-Preference'
-const locales: Locale[] = [...i18n.config.locales]
+const locales: Locale[] = [...i18n.locales]
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
@@ -39,7 +39,7 @@ function getLocale(request: NextRequest, locales: string[]): Locale {
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value))
 
   const languages = new Negotiator({ headers: negotiatorHeaders }).languages(locales)
-  return matchLocale(languages, locales, i18n.config.defaultLocale) as Locale
+  return matchLocale(languages, locales, i18n.defaultLocale) as Locale
 }
 
 export const config = {
