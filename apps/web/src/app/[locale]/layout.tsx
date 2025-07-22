@@ -1,10 +1,10 @@
-import { Locale, getDictionary } from '@/i18n'
-import LocaleProvider from '@/providers/locale-provider'
+import i18n, { Locale, getDictionary } from '@/i18n'
+import LocaleProvider from '@/ui/providers/locale-provider'
 import { Toaster } from '@repo/ui/components/sonner'
 
-import { Drawer } from '@/components/scaffold/Drawer'
-import { MainContainer } from '@/components/scaffold/MainContainer'
-import RoutesProvider from '@/providers/routes-provider'
+import { Drawer } from '@/ui/components/scaffold/Drawer'
+import { MainContainer } from '@/ui/components/scaffold/MainContainer'
+import RoutesProvider from '@/ui/providers/routes-provider'
 import type { Metadata, Viewport } from 'next'
 import { Lato } from 'next/font/google'
 import React from 'react'
@@ -26,6 +26,10 @@ const lato = Lato({
   weight: ['400', '700', '900'],
   subsets: ['latin'],
 })
+
+async function generateStaticParams() {
+  return i18n.locales.map((locale) => ({ locale: locale }))
+}
 
 async function generateMetadata(props: Readonly<Props>): Promise<Metadata> {
   const { locale } = await props.params
@@ -58,6 +62,6 @@ async function RootLayout({ children, params }: Readonly<Props>) {
   )
 }
 
-export { generateMetadata, viewport }
+export { generateMetadata, generateStaticParams, viewport }
 
 export default RootLayout

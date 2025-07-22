@@ -1,7 +1,7 @@
 'use client'
 
 import { Dictionary } from '@/i18n'
-import { useRoutes } from '@/providers/routes-provider'
+import { useRoutes } from '@/ui/providers/routes-provider'
 import { cn } from '@repo/ui/lib/utils'
 import { ArchiveX, CheckCheck, ListChecks } from 'lucide-react'
 import { MenuItem } from './MenuItem'

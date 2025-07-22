@@ -6,8 +6,8 @@ const config = {
 // We enumerate all dictionaries here for better linting and typescript support
 // We also get the default import for cleaner types
 const dictionaries = {
-  en: () => import('./dictionaries/en.json').then((module) => module.default),
-  es: () => import('./dictionaries/es.json').then((module) => module.default),
+  en: () => import('./dictionaries/en').then((module) => module.default),
+  es: () => import('./dictionaries/es').then((module) => module.default),
 }
 
 type Locale = (typeof config)['locales'][number]

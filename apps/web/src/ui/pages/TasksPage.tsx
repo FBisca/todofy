@@ -1,8 +1,8 @@
 'use client'
 
-import { AddTaskButton } from '@/components/tasks/AddTaskButton'
-import { MutableTaskList } from '@/components/tasks/MutableTaskList'
 import { Dictionary } from '@/i18n'
+import { AddTaskButton } from '@/ui/components/tasks/AddTaskButton'
+import { MutableTaskList } from '@/ui/components/tasks/MutableTaskList'
 import { arraySwap } from '@dnd-kit/sortable'
 import { Task, TaskStatus } from '@repo/domain/model/task'
 import { PageTitle } from '@repo/ui/components/page-title'
