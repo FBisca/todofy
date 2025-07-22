@@ -63,7 +63,7 @@ function MutableTaskList({ tasks, onChange, onDelete, onCheckChange, onMove, onD
       onDragEnd={() => setIsDragging(false)}
     >
       <SortableContext items={tasks}>
-        <div className="space-y-2">
+        <div className="space-y-2" data-testid="task-list">
           <AnimatePresence>
             {tasks.map((e) => (
               <motion.div

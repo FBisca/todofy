@@ -5,6 +5,7 @@ import { Toaster } from '@repo/ui/components/sonner'
 import { Drawer } from '@/ui/components/scaffold/Drawer'
 import { MainContainer } from '@/ui/components/scaffold/MainContainer'
 import RoutesProvider from '@/ui/providers/routes-provider'
+import TanstackProvider from '@/ui/providers/tanstack-provider'
 import type { Metadata, Viewport } from 'next'
 import { Lato } from 'next/font/google'
 import React from 'react'
@@ -49,13 +50,15 @@ async function RootLayout({ children, params }: Readonly<Props>) {
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={`${lato.variable} antialiased`}>
-        <LocaleProvider dictionary={dictionary} locale={locale}>
-          <RoutesProvider locale={locale}>
-            <Drawer t={dictionary}>
-              <MainContainer locale={locale}>{children}</MainContainer>
-            </Drawer>
-          </RoutesProvider>
-        </LocaleProvider>
+        <TanstackProvider>
+          <LocaleProvider dictionary={dictionary} locale={locale}>
+            <RoutesProvider locale={locale}>
+              <Drawer t={dictionary}>
+                <MainContainer locale={locale}>{children}</MainContainer>
+              </Drawer>
+            </RoutesProvider>
+          </LocaleProvider>
+        </TanstackProvider>
         <Toaster />
       </body>
     </html>

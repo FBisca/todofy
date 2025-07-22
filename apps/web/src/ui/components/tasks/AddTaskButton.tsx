@@ -2,7 +2,6 @@
 
 import { Dictionary } from '@/i18n'
 import { isAddTaskShortcut, isEscapeShortcut } from '@/lib/utils/shortcut-manager'
-import { Task } from '@repo/domain/model/task'
 import { Button } from '@repo/ui/components/button'
 import { cn } from '@repo/ui/lib/utils'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -13,7 +12,7 @@ import { AddTask } from './AddTask'
 interface Props {
   className?: string
   t: Dictionary
-  onAdd: (task: Task) => void
+  onAdd: (task: { name: string; description: string }) => void
   onAddingChange?: (isAdding: boolean) => void
 }
 

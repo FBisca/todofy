@@ -25,6 +25,14 @@
     "check-types": {
       "dependsOn": ["^check-types"]
     },
+    "e2e": {
+      "dependsOn": ["^build"],
+      "passThroughEnv": ["PLAYWRIGHT_*"]
+    },
+    "e2e:ui": {
+      "dependsOn": ["^build"],
+      "passThroughEnv": ["PLAYWRIGHT_*"]
+    },
     "dev": {
       "cache": false,
       "persistent": true,

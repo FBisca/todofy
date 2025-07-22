@@ -21,6 +21,8 @@ export default {
     messages: {
       taskCompleted: 'Task completed',
       taskDeleted: 'Task deleted',
+      taskDuplicated: 'Task duplicated',
+      taskCreated: 'Task created',
     },
     actions: {
       duplicate: 'Duplicate',

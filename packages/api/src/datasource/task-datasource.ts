@@ -57,6 +57,16 @@ class FilesystemTaskDataSource implements TaskDataSource {
     await fs.writeFile(this.filePath, JSON.stringify({ tasks }, null, 2), 'utf-8')
   }
 
+  private async getTask(id: string): Promise<Task | undefined> {
+    const cachedTask = this.taskMap.get(id)
+    if (cachedTask) {
+      return cachedTask
+    }
+
+    await this.loadTasks()
+    return this.taskMap.get(id)
+  }
+
   async getAllTasks(): Promise<Result<Task[], Error>> {
     try {
       if (this.taskMap.size === 0) {
@@ -97,11 +107,7 @@ class FilesystemTaskDataSource implements TaskDataSource {
 
   async updateTask(id: string, updates: Partial<Task>): Promise<Result<Task | undefined, Error>> {
     try {
-      if (this.taskMap.size === 0) {
-        await this.loadTasks()
-      }
-
-      const existingTask = this.taskMap.get(id)
+      const existingTask = await this.getTask(id)
       if (!existingTask) {
         return ok(undefined)
       }

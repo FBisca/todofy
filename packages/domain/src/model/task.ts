@@ -2,7 +2,7 @@ export interface Task {
   id: string
   name: string
   description: string
-  completed?: boolean
+  completed: boolean
   status: TaskStatus
 }
 

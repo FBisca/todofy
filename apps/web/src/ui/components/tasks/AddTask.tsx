@@ -2,7 +2,6 @@
 
 import { Dictionary } from '@/i18n'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Task, TaskStatus } from '@repo/domain/model/task'
 import { Button } from '@repo/ui/components/button'
 import { Input } from '@repo/ui/components/input'
 import { cn } from '@repo/ui/lib/utils'
@@ -14,7 +13,7 @@ import { z } from 'zod'
 interface Props {
   className?: string
   t: Dictionary
-  onAdd: (task: Task) => void
+  onAdd: (task: { name: string; description: string }) => void
   onCancel: () => void
 }
 
@@ -47,7 +46,7 @@ function AddTask({ className, t, onCancel, onAdd }: Props) {
     const { name, description } = getValues()
     reset()
 
-    onAdd({ id: crypto.randomUUID(), name, description, completed: false, status: TaskStatus.ACTIVE })
+    onAdd({ name, description })
   }
 
   return (
@@ -60,6 +59,7 @@ function AddTask({ className, t, onCancel, onAdd }: Props) {
             autoFocus
             placeholder={t.addTask.title}
             className="placeholder:text-muted-foreground/70 font-semibold"
+            data-testid="task-name-input"
             {...register('name')}
           />
           <Input
@@ -67,6 +67,7 @@ function AddTask({ className, t, onCancel, onAdd }: Props) {
             size="sm"
             placeholder={t.addTask.description}
             className="placeholder:text-muted-foreground/70"
+            data-testid="task-desc-input"
             {...register('description')}
           />
         </div>
@@ -75,7 +76,7 @@ function AddTask({ className, t, onCancel, onAdd }: Props) {
             <X className="h-4 w-4 md:hidden" />
             <span className="hidden md:block">{t.addTask.cancel}</span>
           </Button>
-          <Button disabled={!isValid} type="submit">
+          <Button disabled={!isValid} type="submit" data-testid="save-task-button">
             <SendHorizonal className="h-4 w-4 md:hidden" />
             <span className="hidden md:block">{t.addTask.add}</span>
           </Button>

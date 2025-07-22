@@ -21,6 +21,8 @@ export default {
     messages: {
       taskCompleted: 'Tarea completada',
       taskDeleted: 'Tarea eliminada',
+      taskDuplicated: 'Tarea duplicada',
+      taskCreated: 'Tarea creada',
     },
     actions: {
       duplicate: 'Duplicar',

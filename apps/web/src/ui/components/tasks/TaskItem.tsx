@@ -16,6 +16,7 @@ import { Input } from '@repo/ui/components/input'
 import { cn } from '@repo/ui/lib/utils'
 import { motion } from 'framer-motion'
 import { Copy, EllipsisVertical, Trash2 } from 'lucide-react'
+import { useState } from 'react'
 
 interface Props {
   task: Task
@@ -28,6 +29,8 @@ interface Props {
 }
 
 function TaskItem({ task, anyDragging, onChange, onDelete, onCheckChange, onDuplicate, t }: Props) {
+  const [isCompleted, setIsCompleted] = useState(task.completed)
+
   const { listeners, setNodeRef, isDragging, transform, transition, attributes } = useSortable({
     id: task.id,
     data: task,
@@ -62,8 +65,12 @@ function TaskItem({ task, anyDragging, onChange, onDelete, onCheckChange, onDupl
         className={cn('mt-2 size-4 self-start', {
           'opacity-0': anyDragging,
         })}
-        checked={task.completed === true}
-        onCheckedChange={(checkedState) => onCheckChange({ ...task, completed: checkedState === true })}
+        checked={isCompleted}
+        onCheckedChange={(checkedState) => {
+          setIsCompleted(checkedState === true)
+          onCheckChange({ ...task, completed: checkedState === true })
+        }}
+        data-testid="task-checkbox"
       />
       <div className="flex flex-1 flex-col">
         <Input
@@ -111,7 +118,7 @@ function TaskItem({ task, anyDragging, onChange, onDelete, onCheckChange, onDupl
           <Copy className="h-4 w-4" />
           <span className="sr-only">{t.taskList.actions.duplicate}</span>
         </Button>
-        <Button variant="ghost" size="icon" onClick={() => onDelete(task)}>
+        <Button variant="ghost" size="icon" onClick={() => onDelete(task)} data-testid="delete-task">
           <Trash2 className="h-4 w-4" />
           <span className="sr-only">{t.taskList.actions.delete}</span>
         </Button>

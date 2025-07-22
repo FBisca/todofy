@@ -10,7 +10,6 @@ class TaskController {
   async getTasks(): Promise<Response> {
     const result = await this.repository.getTasks()
     if (!result.ok) {
-      console.log(result.error)
       return new Response(null, { status: 500 })
     }
 
@@ -28,6 +27,7 @@ class TaskController {
       id: crypto.randomUUID(),
       name,
       description,
+      completed: false,
       status: TaskStatus.ACTIVE,
     })
 
