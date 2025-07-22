@@ -31,10 +31,24 @@ class FilesystemTaskDataSource implements TaskDataSource {
     this.filePath = path.resolve(filePath)
   }
 
-  private async loadTasks(): Promise<void> {
-    const data = await fs.readFile(this.filePath, 'utf-8')
+  private async readFile() {
+    try {
+      const data = await fs.readFile(this.filePath, 'utf-8')
 
-    const { tasks } = JSON.parse(data) as { tasks: Task[] }
+      const { tasks } = JSON.parse(data) as { tasks: Task[] }
+      return tasks
+    } catch (error: unknown) {
+      if (typeof error === 'object' && error !== null && 'code' in error && error.code === 'ENOENT') {
+        await fs.writeFile(this.filePath, JSON.stringify({ tasks: [] }, null, 2), 'utf-8')
+        return []
+      }
+
+      throw error
+    }
+  }
+
+  private async loadTasks(): Promise<void> {
+    const tasks = await this.readFile()
     this.taskMap = new Map(tasks.map((task) => [task.id, task]))
   }
 

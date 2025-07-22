@@ -113,4 +113,4 @@ function TasksPage({ t }: Props) {
   )
 }
 
-export { TasksPage }
+export default TasksPage

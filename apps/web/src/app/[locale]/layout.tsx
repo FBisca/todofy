@@ -1,4 +1,4 @@
-import i18n, { Locale, getDictionary } from '@/i18n'
+import { Locale, getDictionary } from '@/i18n'
 import LocaleProvider from '@/providers/locale-provider'
 import { Toaster } from '@repo/ui/components/sonner'
 
@@ -26,10 +26,6 @@ const lato = Lato({
   weight: ['400', '700', '900'],
   subsets: ['latin'],
 })
-
-async function generateStaticParams() {
-  return i18n.locales.map((locale) => ({ locale: locale }))
-}
 
 async function generateMetadata(props: Readonly<Props>): Promise<Metadata> {
   const { locale } = await props.params
@@ -62,6 +58,6 @@ async function RootLayout({ children, params }: Readonly<Props>) {
   )
 }
 
-export { generateMetadata, generateStaticParams, viewport }
+export { generateMetadata, viewport }
 
 export default RootLayout

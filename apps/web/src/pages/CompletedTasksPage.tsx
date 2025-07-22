@@ -17,4 +17,4 @@ function CompletedTasksPage({ t }: Props) {
   )
 }
 
-export { CompletedTasksPage }
+export default CompletedTasksPage

@@ -1,6 +1,7 @@
 'use client'
+
 import { Dictionary } from '@/i18n'
-import { isAddTaskShortcut, isEscapeShortcut } from '@/lib/shortcut-manager'
+import { isAddTaskShortcut, isEscapeShortcut } from '@/lib/utils/shortcut-manager'
 import { Task } from '@repo/domain/model/task'
 import { Button } from '@repo/ui/components/button'
 import { cn } from '@repo/ui/lib/utils'

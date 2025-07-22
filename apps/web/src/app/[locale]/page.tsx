@@ -1,5 +1,5 @@
 import { getDictionary, Locale } from '@/i18n'
-import { TasksPage } from '@/pages/TasksPage'
+import TasksPage from '@/pages/TasksPage'
 
 type Props = {
   params: Promise<{ locale: Locale }>

@@ -1,5 +1,5 @@
+import { err, ok, Result } from '@repo/api/lib/result'
 import z, { ZodDiscriminatedUnion, ZodEffects, ZodObject, ZodRawShape, ZodUnion } from 'zod'
-import { err, ok, Result } from './result.js'
 
 type AnySchema =
   | ZodObject<ZodRawShape>

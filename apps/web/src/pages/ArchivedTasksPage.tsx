@@ -17,4 +17,4 @@ function ArchivedTasksPage({ t }: Props) {
   )
 }
 
-export { ArchivedTasksPage }
+export default ArchivedTasksPage

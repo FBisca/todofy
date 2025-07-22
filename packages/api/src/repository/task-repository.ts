@@ -1,6 +1,6 @@
+import { Error, TaskDataSource } from '@repo/api/datasource/task-datasource'
+import { Result } from '@repo/api/lib/result'
 import { Task } from '@repo/domain/model/task'
-import { Error, TaskDataSource } from '../datasource/task-datasource.js'
-import { Result } from '../lib/result.js'
 
 interface TaskRepository {
   getTasks(): Promise<Result<Task[], Error>>
