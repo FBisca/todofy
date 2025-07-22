@@ -10,11 +10,11 @@ export default {
     title: 'Tareas completadas',
   },
   archivedTasks: {
-    title: 'Tareas archivadas',
+    title: 'Tareas eliminadas',
   },
   menu: {
     tasks: 'Tareas',
-    archived: 'Archivadas',
+    archived: 'Eliminadas',
     completed: 'Completadas',
   },
   taskList: {

@@ -63,7 +63,10 @@ describe('task-controller', () => {
   })
 
   test('updateTask returns 200 on success', async () => {
-    mockParseSchema.mockResolvedValue({ ok: true, value: { name: 'Task', description: 'Desc', completed: false } })
+    mockParseSchema.mockResolvedValue({
+      ok: true,
+      value: { name: 'Task', description: 'Desc', completed: false, status: TaskStatus.ACTIVE },
+    })
     mockRepo.updateTask.mockResolvedValue({ ok: true, value: mockTask })
 
     const res = await taskController.updateTask(mockRequest, '1')

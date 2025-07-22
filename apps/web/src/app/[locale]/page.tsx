@@ -7,7 +7,7 @@ type Props = {
 
 export default async function Page({ params }: Props) {
   const { locale } = await params
-  const t = await getDictionary(locale)
 
+  const t = await getDictionary(locale)
   return <TasksPage t={t} />
 }

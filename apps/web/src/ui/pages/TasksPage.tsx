@@ -2,6 +2,7 @@
 
 import { Dictionary } from '@/i18n'
 import { taskService } from '@/lib/services/task-service'
+import { QueryKeys } from '@/lib/utils/query-keys'
 import { AddTaskButton } from '@/ui/components/tasks/AddTaskButton'
 import { MutableTaskList } from '@/ui/components/tasks/MutableTaskList'
 import { arraySwap } from '@dnd-kit/sortable'
@@ -16,21 +17,19 @@ interface Props {
   t: Dictionary
 }
 
-const activeTasksKey = 'active-tasks'
-
 function TasksPage({ t }: Props) {
   const queryClient = useQueryClient()
 
   const [debounceTaskChange, setDebounceTaskChange] = useState<Task | undefined>(undefined)
 
   const { data: tasks, isLoading } = useQuery({
-    queryKey: [activeTasksKey],
+    queryKey: [QueryKeys.activeTasks],
     queryFn: () => taskService.getTasks({ completed: false, status: TaskStatus.ACTIVE }),
   })
 
   const setTasks = useCallback(
     (update: (prev: Task[]) => Task[]) => {
-      queryClient.setQueryData([activeTasksKey], update)
+      queryClient.setQueryData([QueryKeys.activeTasks], update)
     },
     [queryClient],
   )

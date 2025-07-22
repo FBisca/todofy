@@ -28,7 +28,7 @@ interface Props {
   onDuplicate: (task: Task) => void
 }
 
-function TaskItem({ task, anyDragging, onChange, onDelete, onCheckChange, onDuplicate, t }: Props) {
+function MutableTaskItem({ task, anyDragging, onChange, onDelete, onCheckChange, onDuplicate, t }: Props) {
   const [isCompleted, setIsCompleted] = useState(task.completed)
 
   const { listeners, setNodeRef, isDragging, transform, transition, attributes } = useSortable({
@@ -127,4 +127,4 @@ function TaskItem({ task, anyDragging, onChange, onDelete, onCheckChange, onDupl
   )
 }
 
-export { TaskItem }
+export { MutableTaskItem }

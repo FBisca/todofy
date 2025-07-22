@@ -14,7 +14,7 @@ import { SortableContext } from '@dnd-kit/sortable'
 import { Task } from '@repo/domain/model/task'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useCallback, useState } from 'react'
-import { TaskItem } from './TaskItem'
+import { MutableTaskItem } from './MutableTaskItem'
 import { TaskListEmpty } from './TaskListEmpty'
 
 interface Props {
@@ -72,7 +72,7 @@ function MutableTaskList({ tasks, onChange, onDelete, onCheckChange, onMove, onD
                 exit={{ opacity: 0, x: '-10%' }}
                 transition={{ duration: 0.2 }}
               >
-                <TaskItem
+                <MutableTaskItem
                   t={t}
                   task={e}
                   onDuplicate={onDuplicate}

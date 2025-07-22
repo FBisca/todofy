@@ -10,11 +10,11 @@ export default {
     title: 'Completed Tasks',
   },
   archivedTasks: {
-    title: 'Archived Tasks',
+    title: 'Deleted Tasks',
   },
   menu: {
     tasks: 'Tasks',
-    archived: 'Archived',
+    archived: 'Deleted',
     completed: 'Completed',
   },
   taskList: {

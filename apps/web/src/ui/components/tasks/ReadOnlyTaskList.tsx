@@ -2,6 +2,7 @@
 
 import { Dictionary } from '@/i18n'
 import { Task } from '@repo/domain/model/task'
+import { ReadOnlyTaskItem } from './ReadOnlyTaskItem'
 import { TaskListEmpty } from './TaskListEmpty'
 
 interface Props {
@@ -16,9 +17,9 @@ function ReadOnlyTaskList({ tasks, t }: Props) {
 
   return (
     <>
-      {/* {tasks.map((e) => (
-        <TaskItem key={e.id} t={t} task={e} />
-      ))} */}
+      {tasks.map((e) => (
+        <ReadOnlyTaskItem key={e.id} task={e} />
+      ))}
     </>
   )
 }

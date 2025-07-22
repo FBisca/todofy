@@ -47,9 +47,9 @@ class FilesystemTaskDataSource implements TaskDataSource {
     }
   }
 
-  private async loadTasks(): Promise<void> {
+  private async loadTasks(): Promise<Map<string, Task>> {
     const tasks = await this.readFile()
-    this.taskMap = new Map(tasks.map((task) => [task.id, task]))
+    return new Map(tasks.map((task) => [task.id, task]))
   }
 
   private async saveTasks(): Promise<void> {
@@ -63,14 +63,14 @@ class FilesystemTaskDataSource implements TaskDataSource {
       return cachedTask
     }
 
-    await this.loadTasks()
+    this.taskMap = await this.loadTasks()
     return this.taskMap.get(id)
   }
 
   async getAllTasks(): Promise<Result<Task[], Error>> {
     try {
       if (this.taskMap.size === 0) {
-        await this.loadTasks()
+        this.taskMap = await this.loadTasks()
       }
 
       return ok(Array.from(this.taskMap.values()))
