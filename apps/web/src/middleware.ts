@@ -1,7 +1,7 @@
 import i18n, { Locale } from '@/i18n'
-import { NextRequest, NextResponse } from 'next/server'
 import { match as matchLocale } from '@formatjs/intl-localematcher'
 import Negotiator from 'negotiator'
+import { NextRequest, NextResponse } from 'next/server'
 
 const locales: Locale[] = [...i18n.locales]
 
@@ -40,6 +40,5 @@ function getLocale(request: NextRequest, locales: string[]): Locale {
 }
 
 export const config = {
-  // Matcher ignoring `/_next/` and `/api/`
-  matcher: ['/((?!api|_next|_next|images|svg|videos|favicon.ico|app).*)'],
+  matcher: ['/((?!api|_next|.*\\..*).*)'],
 }

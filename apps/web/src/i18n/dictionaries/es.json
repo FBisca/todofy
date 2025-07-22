@@ -5,5 +5,16 @@
   },
   "home": {
     "title": "Inicio"
+  },
+  "menu": {
+    "tasks": "Tareas",
+    "archived": "Archivadas",
+    "completed": "Completadas"
+  },
+  "addTask": {
+    "title": "Nombre de la tarea",
+    "description": "Descripción de la tarea",
+    "cancel": "Cancelar",
+    "add": "Añadir tarea"
   }
 }

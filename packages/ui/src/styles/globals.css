@@ -3,8 +3,6 @@
 
 @import 'tw-animate-css';
 
-@custom-variant dark (&:is(.dark *));
-
 /* Todoist-like Theme */
 :root {
   --background: oklch(1 0 0); /* White */
@@ -16,14 +14,14 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.18 0 0);
 
-  --primary: oklch(0.62 0.25 30); /* Todoist Red (#E44332) */
+  --primary: oklch(0.573 0.232 29.6); /* #C3392C */
   --primary-foreground: oklch(1 0 0); /* White text on red */
 
   --secondary: oklch(0.98 0.004 75); /* fcfaf8 - very light warm background */
   --secondary-foreground: oklch(0.18 0 0);
 
   --muted: oklch(0.94 0 0); /* Muted background */
-  --muted-foreground: oklch(0.45 0 0); /* Gray text */
+  --muted-foreground: oklch(0.24 0 0); /* Gray text */
 
   --accent: oklch(0.97 0 0); /* Subtle hover BG */
   --accent-foreground: oklch(0.18 0 0);
@@ -47,45 +45,6 @@
 
   --radius: 0.625rem;
   --sidebar-width: 280px;
-}
-
-.dark {
-  --background: oklch(0.14 0 0); /* Near black */
-  --foreground: oklch(0.92 0 0); /* Light gray text */
-
-  --card: oklch(0.18 0 0);
-  --card-foreground: oklch(0.92 0 0);
-
-  --popover: oklch(0.18 0 0);
-  --popover-foreground: oklch(0.92 0 0);
-
-  --primary: oklch(0.62 0.25 30); /* Todoist red stays same */
-  --primary-foreground: oklch(1 0 0);
-
-  --secondary: oklch(0.24 0 0); /* Dark gray for panels */
-  --secondary-foreground: oklch(0.92 0 0);
-
-  --muted: oklch(0.22 0 0);
-  --muted-foreground: oklch(0.7 0 0);
-
-  --accent: oklch(0.25 0 0);
-  --accent-foreground: oklch(0.92 0 0);
-
-  --destructive: oklch(0.58 0.23 30);
-  --destructive-foreground: oklch(1 0 0);
-
-  --border: oklch(0.24 0 0);
-  --input: oklch(0.24 0 0);
-  --ring: oklch(0.5 0 0);
-
-  --sidebar: oklch(0.18 0 0); /* Dark sidebar */
-  --sidebar-foreground: oklch(0.92 0 0);
-  --sidebar-primary: oklch(0.62 0.25 30);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.24 0 0);
-  --sidebar-accent-foreground: oklch(0.92 0 0);
-  --sidebar-border: oklch(0.24 0 0);
-  --sidebar-ring: oklch(0.5 0 0);
 }
 
 @theme inline {

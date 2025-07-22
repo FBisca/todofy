@@ -5,5 +5,16 @@
   },
   "home": {
     "title": "Home"
+  },
+  "menu": {
+    "tasks": "Tasks",
+    "archived": "Archived",
+    "completed": "Completed"
+  },
+  "addTask": {
+    "title": "Your task name",
+    "description": "Your task description",
+    "cancel": "Cancel",
+    "add": "Add Task"
   }
 }
