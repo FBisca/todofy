@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react'
 
 interface Props {
   locale: Locale
+  containerRef: React.RefObject<HTMLDivElement | null>
 }
 
 const languages: Record<Locale, { name: string; flag: string }> = {
@@ -26,7 +27,7 @@ const languages: Record<Locale, { name: string; flag: string }> = {
   },
 }
 
-function NavBar({ locale }: Props) {
+function NavBar({ locale, containerRef }: Props) {
   const router = useRouter()
   const language = languages[locale]
 
@@ -36,14 +37,17 @@ function NavBar({ locale }: Props) {
 
   const [isScrolled, setIsScrolled] = useState(0)
   useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
     const handleScroll = () => {
-      const scrollProgress = Math.min(window.scrollY, 100) / 100
+      const scrollProgress = Math.min(container.scrollTop, 100) / 100
       setIsScrolled(scrollProgress)
     }
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    container?.addEventListener('scroll', handleScroll)
+    return () => container?.removeEventListener('scroll', handleScroll)
+  }, [containerRef])
 
   return (
     <header

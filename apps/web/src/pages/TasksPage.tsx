@@ -29,22 +29,25 @@ function TasksPage({ t }: Props) {
     },
   ])
 
-  const onTaskCompleted = useCallback((task: Task) => {
-    setTasks((prev) => {
-      const test = prev.filter((task) => task.id !== task.id)
-      console.log(test)
-      return test
-    })
+  const onTaskCompleted = useCallback(
+    (task: Task) => {
+      setTasks((prev) => {
+        const test = prev.filter((task) => task.id !== task.id)
+        console.log(test)
+        return test
+      })
 
-    toast.success('Task completed', {
-      action: {
-        label: 'Undo',
-        onClick: () => {
-          setTasks((prev) => [...prev, { ...task, completed: false }])
+      toast.success(t.taskList.messages.taskCompleted, {
+        action: {
+          label: t.taskList.actions.undo,
+          onClick: () => {
+            setTasks((prev) => [...prev, { ...task, completed: false }])
+          },
         },
-      },
-    })
-  }, [])
+      })
+    },
+    [t],
+  )
 
   const onTaskChange = useCallback((task: Task) => {
     setTasks((prev) => prev.map((t) => (t.id === task.id ? task : t)))
@@ -54,18 +57,21 @@ function TasksPage({ t }: Props) {
     setTasks((prev) => [...prev, { ...task, id: crypto.randomUUID() }])
   }, [])
 
-  const onTaskDeleted = useCallback((task: Task) => {
-    setTasks((prev) => prev.filter((t) => t.id !== task.id))
+  const onTaskDeleted = useCallback(
+    (task: Task) => {
+      setTasks((prev) => prev.filter((t) => t.id !== task.id))
 
-    toast.success('Task deleted', {
-      action: {
-        label: 'Undo',
-        onClick: () => {
-          setTasks((prev) => [...prev, { ...task, completed: false }])
+      toast.success(t.taskList.messages.taskDeleted, {
+        action: {
+          label: t.taskList.actions.undo,
+          onClick: () => {
+            setTasks((prev) => [...prev, { ...task, completed: false }])
+          },
         },
-      },
-    })
-  }, [])
+      })
+    },
+    [t],
+  )
 
   return (
     <>

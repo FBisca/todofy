@@ -86,11 +86,11 @@ function TaskItem({ task, anyDragging, onChange, onDelete, onCheckChange, onDupl
       >
         <Button variant="ghost" size="icon" onClick={() => onDuplicate(task)}>
           <Copy className="h-4 w-4" />
-          <span className="sr-only">Duplicate</span>
+          <span className="sr-only">{t.taskList.actions.duplicate}</span>
         </Button>
         <Button variant="ghost" size="icon" onClick={() => onDelete(task)}>
           <Trash2 className="h-4 w-4" />
-          <span className="sr-only">Delete</span>
+          <span className="sr-only">{t.taskList.actions.delete}</span>
         </Button>
       </div>
     </motion.div>

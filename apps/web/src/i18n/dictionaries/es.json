@@ -12,6 +12,15 @@
     "completed": "Completadas"
   },
   "taskList": {
+    "messages": {
+      "taskCompleted": "Tarea completada",
+      "taskDeleted": "Tarea eliminada"
+    },
+    "actions": {
+      "duplicate": "Duplicar",
+      "delete": "Eliminar",
+      "undo": "Deshacer"
+    },
     "empty": {
       "title": "No hay tareas",
       "description": "Añade una tarea para empezar"

@@ -8,7 +8,6 @@ vi.mock('next/navigation', () => {
   }
 })
 
-import { Locale } from '@/i18n'
 import { usePathname } from 'next/navigation'
 
 describe('MenuItem', () => {
@@ -16,12 +15,11 @@ describe('MenuItem', () => {
     title: 'Tasks',
     path: '/tasks',
     icon: <span data-testid="icon">icon</span>,
-    locale: 'en' as Locale,
   }
 
-  test('GIVEN path with locale matches WHEN render THEN should be active', () => {
+  test('GIVEN path with trailing slash matches WHEN render THEN should be active', () => {
     const mockPathname = usePathname as ReturnType<typeof vi.fn>
-    mockPathname.mockReturnValue('/en/tasks')
+    mockPathname.mockReturnValue('/tasks/')
 
     render(<MenuItem {...defaultProps} />)
 

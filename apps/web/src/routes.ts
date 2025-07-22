@@ -1,9 +1,13 @@
-export const AppRoutes = {
-  tasks: () => buildRoute('/'),
-  completed: () => buildRoute('/completed'),
-  archived: () => buildRoute('/archived'),
-}
+import { Locale } from './i18n'
 
-function buildRoute(route: string) {
-  return route
+export const routes = (locale: Locale) => {
+  function buildRoute(route: string) {
+    return `/${locale}${route}`
+  }
+
+  return {
+    tasks: () => buildRoute('/'),
+    completed: () => buildRoute('/completed'),
+    archived: () => buildRoute('/archived'),
+  }
 }

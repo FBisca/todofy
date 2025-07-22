@@ -12,6 +12,15 @@
     "completed": "Completed"
   },
   "taskList": {
+    "messages": {
+      "taskCompleted": "Task completed",
+      "taskDeleted": "Task deleted"
+    },
+    "actions": {
+      "duplicate": "Duplicate",
+      "delete": "Delete",
+      "undo": "Undo"
+    },
     "empty": {
       "title": "No tasks",
       "description": "Add a task to get started"
