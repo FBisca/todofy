@@ -26,8 +26,8 @@ describe('MenuItem', () => {
     render(<MenuItem {...defaultProps} />)
 
     const li = screen.getByRole('listitem')
-    expect(li).toHaveClass('bg-primary')
-    expect(li).toHaveClass('text-primary-foreground')
+    expect(li).toHaveClass('bg-primary/10')
+    expect(li).toHaveClass('text-primary')
   })
 
   test('GIVEN path matches WHEN render THEN should be active', () => {
@@ -37,8 +37,8 @@ describe('MenuItem', () => {
     render(<MenuItem {...defaultProps} />)
 
     const li = screen.getByRole('listitem')
-    expect(li).toHaveClass('bg-primary')
-    expect(li).toHaveClass('text-primary-foreground')
+    expect(li).toHaveClass('bg-primary/10')
+    expect(li).toHaveClass('text-primary')
   })
 
   test('GIVEN path does not match WHEN render THEN should not be active', () => {

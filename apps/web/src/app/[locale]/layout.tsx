@@ -1,5 +1,7 @@
 import i18n, { Locale, getDictionary } from '@/i18n'
 import LocaleProvider from '@/providers/locale-provider'
+import { Toaster } from '@repo/ui/components/sonner'
+
 import type { Metadata, Viewport } from 'next'
 import { Lato } from 'next/font/google'
 import React from 'react'
@@ -47,6 +49,7 @@ async function RootLayout({ children, params }: Readonly<Props>) {
         <LocaleProvider dictionary={dictionary} locale={locale}>
           {children}
         </LocaleProvider>
+        <Toaster />
       </body>
     </html>
   )

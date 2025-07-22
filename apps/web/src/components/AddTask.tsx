@@ -2,6 +2,7 @@
 
 import { Dictionary } from '@/i18n'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Task, TaskStatus } from '@repo/domain/model/task'
 import { Button } from '@repo/ui/components/button'
 import { Input } from '@repo/ui/components/input'
 import { cn } from '@repo/ui/lib/utils'
@@ -13,10 +14,11 @@ import { z } from 'zod'
 interface Props {
   className?: string
   t: Dictionary
+  onAdd: (task: Task) => void
   onCancel: () => void
 }
 
-function AddTask({ className, t, onCancel }: Props) {
+function AddTask({ className, t, onCancel, onAdd }: Props) {
   const schema = useMemo(
     () =>
       z.object({
@@ -42,7 +44,10 @@ function AddTask({ className, t, onCancel }: Props) {
   })
 
   const onSubmit = () => {
+    const { name, description } = getValues()
     reset()
+
+    onAdd({ id: crypto.randomUUID(), name, description, completed: false, status: TaskStatus.ACTIVE })
   }
 
   return (

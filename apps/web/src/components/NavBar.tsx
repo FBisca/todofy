@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from '@repo/ui/components/dropdown-menu'
 import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 interface Props {
   locale: Locale
@@ -33,8 +34,24 @@ function NavBar({ locale }: Props) {
     router.push(`/${locale}`)
   }
 
+  const [isScrolled, setIsScrolled] = useState(0)
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollProgress = Math.min(window.scrollY, 100) / 100
+      setIsScrolled(scrollProgress)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
-    <header className="h-14">
+    <header
+      className="bg-background/60 fixed left-0 right-0 top-0 z-10 h-[var(--navbar-height)] backdrop-blur-sm"
+      style={{
+        boxShadow: `0 4px 6px -1px rgb(0 0 0 / ${isScrolled * 0.1}), 0 2px 4px -2px rgb(0 0 0 / ${isScrolled * 0.1})`,
+      }}
+    >
       <nav className="flex items-center justify-end p-3">
         <DropdownMenu>
           <DropdownMenuTrigger className="cursor-pointer">

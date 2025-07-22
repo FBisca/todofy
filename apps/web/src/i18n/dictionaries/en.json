@@ -11,6 +11,12 @@
     "archived": "Archived",
     "completed": "Completed"
   },
+  "taskList": {
+    "empty": {
+      "title": "No tasks",
+      "description": "Add a task to get started"
+    }
+  },
   "addTask": {
     "title": "Your task name",
     "description": "Your task description",

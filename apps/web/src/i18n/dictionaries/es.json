@@ -11,6 +11,12 @@
     "archived": "Archivadas",
     "completed": "Completadas"
   },
+  "taskList": {
+    "empty": {
+      "title": "No hay tareas",
+      "description": "Añade una tarea para empezar"
+    }
+  },
   "addTask": {
     "title": "Nombre de la tarea",
     "description": "Descripción de la tarea",

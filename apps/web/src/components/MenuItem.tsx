@@ -16,6 +16,7 @@ function MenuItem({ title, path, icon, locale }: Props) {
   const pathname = usePathname()
   const pathWithLocale = `/${locale}${path === '/' ? '' : path}`
   const isActive = pathname === path || pathname === pathWithLocale
+
   return (
     <li
       className={cn('hover:bg-primary/5 hover:text-primary rounded transition-colors duration-300 ease-in-out', {

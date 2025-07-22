@@ -17,7 +17,7 @@ export default defineConfig({
       ['**/*.{test,spec}.tsx', 'jsdom'],
       ['**/*.{test,spec}.ts', 'jsdom'],
     ],
-    setupFiles: ['./vitest-setup.ts'],
+    setupFiles: ['./vitest-setup.tsx'],
     env: loadEnv('', process.cwd(), ''),
   },
 })

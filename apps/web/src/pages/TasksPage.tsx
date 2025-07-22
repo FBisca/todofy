@@ -5,9 +5,11 @@ import { HomeDrawer } from '@/components/HomeDrawer'
 import { NavBar } from '@/components/NavBar'
 import { TaskList } from '@/components/TaskList'
 import { Dictionary, Locale } from '@/i18n'
+import { arraySwap } from '@dnd-kit/sortable'
 import { Task, TaskStatus } from '@repo/domain/model/task'
 import { PageTitle } from '@repo/ui/components/page-title'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
+import { toast } from 'sonner'
 
 interface Props {
   locale: Locale
@@ -29,6 +31,45 @@ function TasksPage({ locale, t }: Props) {
       status: TaskStatus.ACTIVE,
     },
   ])
+
+  const onTaskCompleted = useCallback((task: Task) => {
+    setTasks((prev) => {
+      const test = prev.filter((task) => task.id !== task.id)
+      console.log(test)
+      return test
+    })
+
+    toast.success('Task completed', {
+      action: {
+        label: 'Undo',
+        onClick: () => {
+          setTasks((prev) => [...prev, { ...task, completed: false }])
+        },
+      },
+    })
+  }, [])
+
+  const onTaskChange = useCallback((task: Task) => {
+    setTasks((prev) => prev.map((t) => (t.id === task.id ? task : t)))
+  }, [])
+
+  const onTaskDuplicate = useCallback((task: Task) => {
+    setTasks((prev) => [...prev, { ...task, id: crypto.randomUUID() }])
+  }, [])
+
+  const onTaskDeleted = useCallback((task: Task) => {
+    setTasks((prev) => prev.filter((t) => t.id !== task.id))
+
+    toast.success('Task deleted', {
+      action: {
+        label: 'Undo',
+        onClick: () => {
+          setTasks((prev) => [...prev, { ...task, completed: false }])
+        },
+      },
+    })
+  }, [])
+
   return (
     <div>
       <HomeDrawer t={t} locale={locale}>
@@ -42,26 +83,31 @@ function TasksPage({ locale, t }: Props) {
                   setTasks((prev) => {
                     const fromIndex = prev.findIndex((task) => task.id === from.id)
                     const toIndex = prev.findIndex((task) => task.id === to.id)
-                    const newTasks = [...prev]
-                    newTasks[fromIndex] = to
-                    newTasks[toIndex] = from
-                    return newTasks
+
+                    return arraySwap(prev, fromIndex, toIndex)
                   })
                 }}
-                onChange={(e) => {
-                  setTasks((prev) => prev.map((task) => (task.id === e.id ? e : task)))
-                }}
-                onDelete={(e) => {
-                  setTasks((prev) => prev.filter((task) => task.id !== e.id))
-                }}
+                onChange={onTaskChange}
+                onDuplicate={onTaskDuplicate}
+                onDelete={onTaskDeleted}
                 onCheckChange={(e) => {
-                  setTasks((prev) => prev.map((task) => (task.id === e.id ? e : task)))
+                  if (e.completed === true) {
+                    onTaskCompleted(e)
+                  } else {
+                    onTaskChange(e)
+                    setTasks((prev) => prev.map((task) => (task.id === e.id ? e : task)))
+                  }
                 }}
                 tasks={tasks}
                 t={t}
               />
               <div>
-                <AddTaskButton t={t} />
+                <AddTaskButton
+                  t={t}
+                  onAdd={(task) => {
+                    setTasks((prev) => [...prev, task])
+                  }}
+                />
               </div>
             </div>
           </div>

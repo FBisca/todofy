@@ -45,6 +45,7 @@
 
   --radius: 0.625rem;
   --sidebar-width: 280px;
+  --navbar-height: 56px;
 }
 
 @theme inline {
