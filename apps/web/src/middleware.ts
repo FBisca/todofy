@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { match as matchLocale } from '@formatjs/intl-localematcher'
 import Negotiator from 'negotiator'
 
-const languageHeader = 'X-Language-Preference'
 const locales: Locale[] = [...i18n.locales]
 
 export function middleware(request: NextRequest) {
@@ -25,12 +24,10 @@ export function middleware(request: NextRequest) {
         request.url,
       ),
     )
-    response.headers.set(languageHeader, locale)
+
     return response
   } else {
-    const response = NextResponse.next()
-    response.headers.set(languageHeader, requestLocale)
-    return response
+    return NextResponse.next()
   }
 }
 

@@ -15,7 +15,9 @@ type Locale = (typeof config)['locales'][number]
 const defaultDictionary = dictionaries.en
 const getDictionary = async (locale: Locale) => dictionaries[locale]?.() ?? defaultDictionary()
 
+type Dictionary = Awaited<ReturnType<typeof getDictionary>>
+
 export { getDictionary }
-export type { Locale }
+export type { Dictionary, Locale }
 
 export default config

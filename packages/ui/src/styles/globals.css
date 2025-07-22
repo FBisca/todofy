@@ -1,81 +1,91 @@
 @import 'tailwindcss';
-@source "../../../apps/**/*.{ts,tsx}";
-@source "../../../components/**/*.{ts,tsx}";
-@source "../**/*.{ts,tsx}";
+@source "../components/**/*.{ts,tsx}";
 
 @import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
+/* Todoist-like Theme */
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --background: oklch(1 0 0); /* White */
+  --foreground: oklch(0.18 0 0); /* Near black text */
+
+  --card: oklch(1 0 0); /* White card */
+  --card-foreground: oklch(0.18 0 0);
+
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  --popover-foreground: oklch(0.18 0 0);
+
+  --primary: oklch(0.62 0.25 30); /* Todoist Red (#E44332) */
+  --primary-foreground: oklch(1 0 0); /* White text on red */
+
+  --secondary: oklch(0.98 0.004 75); /* fcfaf8 - very light warm background */
+  --secondary-foreground: oklch(0.18 0 0);
+
+  --muted: oklch(0.94 0 0); /* Muted background */
+  --muted-foreground: oklch(0.45 0 0); /* Gray text */
+
+  --accent: oklch(0.97 0 0); /* Subtle hover BG */
+  --accent-foreground: oklch(0.18 0 0);
+
+  --destructive: oklch(0.65 0.27 25); /* Reddish for danger */
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.9 0 0); /* Light gray borders */
+  --input: oklch(0.92 0 0);
+  --ring: oklch(0.7 0 0); /* Focus ring (subtle gray) */
+
+  /* Sidebar (matches Todoist left nav) */
+  --sidebar: oklch(0.98 0 0); /* Slightly off-white */
+  --sidebar-foreground: oklch(0.18 0 0);
+  --sidebar-primary: oklch(0.62 0.25 30); /* Brand red */
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.96 0 0);
+  --sidebar-accent-foreground: oklch(0.18 0 0);
+  --sidebar-border: oklch(0.9 0 0);
+  --sidebar-ring: oklch(0.7 0 0);
+
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar-width: 280px;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(0.269 0 0);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
+  --background: oklch(0.14 0 0); /* Near black */
+  --foreground: oklch(0.92 0 0); /* Light gray text */
+
+  --card: oklch(0.18 0 0);
+  --card-foreground: oklch(0.92 0 0);
+
+  --popover: oklch(0.18 0 0);
+  --popover-foreground: oklch(0.92 0 0);
+
+  --primary: oklch(0.62 0.25 30); /* Todoist red stays same */
+  --primary-foreground: oklch(1 0 0);
+
+  --secondary: oklch(0.24 0 0); /* Dark gray for panels */
+  --secondary-foreground: oklch(0.92 0 0);
+
+  --muted: oklch(0.22 0 0);
+  --muted-foreground: oklch(0.7 0 0);
+
+  --accent: oklch(0.25 0 0);
+  --accent-foreground: oklch(0.92 0 0);
+
+  --destructive: oklch(0.58 0.23 30);
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.24 0 0);
+  --input: oklch(0.24 0 0);
+  --ring: oklch(0.5 0 0);
+
+  --sidebar: oklch(0.18 0 0); /* Dark sidebar */
+  --sidebar-foreground: oklch(0.92 0 0);
+  --sidebar-primary: oklch(0.62 0.25 30);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.24 0 0);
+  --sidebar-accent-foreground: oklch(0.92 0 0);
+  --sidebar-border: oklch(0.24 0 0);
+  --sidebar-ring: oklch(0.5 0 0);
 }
 
 @theme inline {
@@ -98,11 +108,6 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

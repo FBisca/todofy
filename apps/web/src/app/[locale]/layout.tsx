@@ -1,7 +1,8 @@
+import i18n, { Locale, getDictionary } from '@/i18n'
+import LocaleProvider from '@/providers/locale-provider'
 import type { Metadata, Viewport } from 'next'
 import { Lato } from 'next/font/google'
 import React from 'react'
-import i18n, { Locale, getDictionary } from '@/i18n'
 import '../globals.css'
 
 type Props = {
@@ -39,13 +40,18 @@ async function generateMetadata(props: Readonly<Props>): Promise<Metadata> {
 async function RootLayout({ children, params }: Readonly<Props>) {
   const { locale } = await params
 
+  const dictionary = await getDictionary(locale)
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className={`${lato.variable} antialiased`}>{children}</body>
+      <body className={`${lato.variable} antialiased`}>
+        <LocaleProvider dictionary={dictionary} locale={locale}>
+          {children}
+        </LocaleProvider>
+      </body>
     </html>
   )
 }
 
-export { generateStaticParams, generateMetadata, viewport }
+export { generateMetadata, generateStaticParams, viewport }
 
 export default RootLayout

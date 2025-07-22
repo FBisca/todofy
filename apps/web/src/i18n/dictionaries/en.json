@@ -2,5 +2,8 @@
   "metadata": {
     "title": "Todofy | Your To Do list manager",
     "description": "Your To Do list manager"
+  },
+  "home": {
+    "title": "Home"
   }
 }
