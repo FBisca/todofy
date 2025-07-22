@@ -1,21 +1,19 @@
 'use client'
 
 import { Dictionary } from '@/i18n'
-import { useRoutes } from '@/providers/routes-provider'
 import { Button } from '@repo/ui/components/button'
 import { useMediaQuery } from '@repo/ui/hooks/use-media-query'
 import { cn } from '@repo/ui/lib/utils'
-import { ArchiveX, CheckCheck, ListChecks, PanelLeft } from 'lucide-react'
+import { PanelLeft } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { MenuItem } from './MenuItem'
+import { Menu } from './Menu'
 
 interface Props {
   children: React.ReactNode
   t: Dictionary
 }
 
-function HomeDrawer({ children, t }: Props) {
-  const { routes } = useRoutes()
+function Drawer({ children, t }: Props) {
   const [isExpanded, setIsExpanded] = useState(true)
   const isMobile = useMediaQuery('(max-width: 1024px)')
 
@@ -50,7 +48,7 @@ function HomeDrawer({ children, t }: Props) {
           size={'icon'}
           variant={'ghost'}
           className={cn(
-            'text-secondary-foreground hover:bg-primary/5 sticky right-2 z-50 cursor-pointer self-end rounded p-2 transition-all duration-300 ease-in-out',
+            'text-foreground/50 hover:bg-primary/5 sticky right-2 z-50 cursor-pointer self-end rounded p-2 transition-all duration-300 ease-in-out',
             {
               'text-foreground -mr-14': !isExpanded,
             },
@@ -59,33 +57,11 @@ function HomeDrawer({ children, t }: Props) {
           <PanelLeft className="size-6" />
         </Button>
 
-        <div className="mt-12 flex flex-col gap-2">
-          <ol className="space-y-2">
-            <MenuItem
-              title={t.menu.tasks}
-              path={routes.tasks()}
-              icon={<ListChecks className="size-5" />}
-              onClick={() => isMobile && setIsExpanded(false)}
-            />
-            <MenuItem
-              title={t.menu.completed}
-              path={routes.completed()}
-              icon={<CheckCheck className="size-5" />}
-              onClick={() => isMobile && setIsExpanded(false)}
-            />
-            <MenuItem
-              title={t.menu.archived}
-              path={routes.archived()}
-              icon={<ArchiveX className="size-5" />}
-              onClick={() => isMobile && setIsExpanded(false)}
-            />
-          </ol>
-        </div>
+        <Menu className="mt-6" t={t} onNavigate={() => isMobile && setIsExpanded(false)} />
       </aside>
       <main className="flex h-full flex-1 flex-col overflow-hidden">{children}</main>
     </div>
   )
-  //pt-[var(--navbar-height)]
 }
 
-export { HomeDrawer }
+export { Drawer }

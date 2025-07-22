@@ -6,10 +6,16 @@ import { CSS } from '@dnd-kit/utilities'
 import { Task } from '@repo/domain/model/task'
 import { Button } from '@repo/ui/components/button'
 import { Checkbox } from '@repo/ui/components/checkbox'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@repo/ui/components/dropdown-menu'
 import { Input } from '@repo/ui/components/input'
 import { cn } from '@repo/ui/lib/utils'
 import { motion } from 'framer-motion'
-import { Copy, Trash2 } from 'lucide-react'
+import { Copy, EllipsisVertical, Trash2 } from 'lucide-react'
 
 interface Props {
   task: Task
@@ -79,8 +85,25 @@ function TaskItem({ task, anyDragging, onChange, onDelete, onCheckChange, onDupl
           value={task.description}
         />
       </div>
+
+      <DropdownMenu>
+        <DropdownMenuTrigger className="block md:hidden">
+          <EllipsisVertical className="h-4 w-4" />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem onClick={() => onDuplicate(task)}>
+            <Copy className="h-4 w-4" />
+            <span>{t.taskList.actions.duplicate}</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => onDelete(task)}>
+            <Trash2 className="h-4 w-4" />
+            <span>{t.taskList.actions.delete}</span>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
       <div
-        className={cn('flex items-center gap-2 opacity-0 transition-opacity group-hover:opacity-100', {
+        className={cn('hidden items-center gap-2 opacity-0 transition-opacity group-hover:opacity-100 md:flex', {
           hidden: anyDragging,
         })}
       >

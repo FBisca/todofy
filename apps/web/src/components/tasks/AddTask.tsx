@@ -70,7 +70,7 @@ function AddTask({ className, t, onCancel, onAdd }: Props) {
             {...register('description')}
           />
         </div>
-        <div className="flex justify-end gap-3 border border-t px-3 py-2">
+        <div className="border-border flex justify-end gap-3 border-t px-3 py-2">
           <Button variant="ghost" onClick={onCancel}>
             <X className="h-4 w-4 md:hidden" />
             <span className="hidden md:block">{t.addTask.cancel}</span>

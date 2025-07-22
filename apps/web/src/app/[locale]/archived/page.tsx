@@ -1,5 +1,5 @@
 import { getDictionary, Locale } from '@/i18n'
-import { TasksPage } from '@/pages/TasksPage'
+import { ArchivedTasksPage } from '@/pages/ArchivedTasksPage'
 
 type Props = {
   params: Promise<{ locale: Locale }>
@@ -8,5 +8,5 @@ type Props = {
 export default async function Page({ params }: Props) {
   const { locale } = await params
   const t = await getDictionary(locale)
-  return <TasksPage locale={locale} t={t} />
+  return <ArchivedTasksPage t={t} />
 }

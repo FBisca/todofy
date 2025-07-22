@@ -6,6 +6,12 @@
   "tasks": {
     "title": "Tasks"
   },
+  "completedTasks": {
+    "title": "Completed Tasks"
+  },
+  "archivedTasks": {
+    "title": "Archived Tasks"
+  },
   "menu": {
     "tasks": "Tasks",
     "archived": "Archived",

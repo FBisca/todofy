@@ -2,8 +2,8 @@ import i18n, { Locale, getDictionary } from '@/i18n'
 import LocaleProvider from '@/providers/locale-provider'
 import { Toaster } from '@repo/ui/components/sonner'
 
-import { HomeDrawer } from '@/components/HomeDrawer'
-import { MainContainer } from '@/components/MainContainer'
+import { Drawer } from '@/components/scaffold/Drawer'
+import { MainContainer } from '@/components/scaffold/MainContainer'
 import RoutesProvider from '@/providers/routes-provider'
 import type { Metadata, Viewport } from 'next'
 import { Lato } from 'next/font/google'
@@ -51,9 +51,9 @@ async function RootLayout({ children, params }: Readonly<Props>) {
       <body className={`${lato.variable} antialiased`}>
         <LocaleProvider dictionary={dictionary} locale={locale}>
           <RoutesProvider locale={locale}>
-            <HomeDrawer t={dictionary}>
+            <Drawer t={dictionary}>
               <MainContainer locale={locale}>{children}</MainContainer>
-            </HomeDrawer>
+            </Drawer>
           </RoutesProvider>
         </LocaleProvider>
         <Toaster />

@@ -1,7 +1,7 @@
 'use client'
 
-import { AddTaskButton } from '@/components/AddTaskButton'
-import { TaskList } from '@/components/TaskList'
+import { AddTaskButton } from '@/components/tasks/AddTaskButton'
+import { MutableTaskList } from '@/components/tasks/MutableTaskList'
 import { Dictionary } from '@/i18n'
 import { arraySwap } from '@dnd-kit/sortable'
 import { Task, TaskStatus } from '@repo/domain/model/task'
@@ -77,7 +77,7 @@ function TasksPage({ t }: Props) {
     <>
       <div className="mx-auto h-full w-full max-w-[800px] space-y-4">
         <PageTitle>{t.tasks.title}</PageTitle>
-        <TaskList
+        <MutableTaskList
           onMove={(from, to) => {
             setTasks((prev) => {
               const fromIndex = prev.findIndex((task) => task.id === from.id)

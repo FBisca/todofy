@@ -12,11 +12,10 @@ import {
 } from '@dnd-kit/core'
 import { SortableContext } from '@dnd-kit/sortable'
 import { Task } from '@repo/domain/model/task'
-import { cn } from '@repo/ui/lib/utils'
 import { AnimatePresence, motion } from 'framer-motion'
-import Image from 'next/image'
 import { useCallback, useState } from 'react'
 import { TaskItem } from './TaskItem'
+import { TaskListEmpty } from './TaskListEmpty'
 
 interface Props {
   tasks: Task[]
@@ -28,7 +27,7 @@ interface Props {
   onMove: (from: Task, to: Task) => void
 }
 
-function TaskList({ tasks, onChange, onDelete, onCheckChange, onMove, onDuplicate, t }: Props) {
+function MutableTaskList({ tasks, onChange, onDelete, onCheckChange, onMove, onDuplicate, t }: Props) {
   const [isDragging, setIsDragging] = useState(false)
   const sensors = useSensors(
     useSensor(MouseSensor, {
@@ -65,7 +64,7 @@ function TaskList({ tasks, onChange, onDelete, onCheckChange, onMove, onDuplicat
     >
       <SortableContext items={tasks}>
         <div className="space-y-2">
-          <AnimatePresence mode="popLayout">
+          <AnimatePresence>
             {tasks.map((e) => (
               <motion.div
                 key={e.id}
@@ -91,14 +90,4 @@ function TaskList({ tasks, onChange, onDelete, onCheckChange, onMove, onDuplicat
   )
 }
 
-function TaskListEmpty({ className, t }: { className?: string; t: Dictionary }) {
-  return (
-    <div className={cn('flex flex-col items-center justify-center', className)}>
-      <Image src="/empty.avif" alt="Empty state" width={100} height={100} className="size-[200px]" />
-      <p className="text-foreground text-xl font-semibold">{t.taskList.empty.title}</p>
-      <p className="text-muted-foreground text-sm">{t.taskList.empty.description}</p>
-    </div>
-  )
-}
-
-export { TaskList }
+export { MutableTaskList }
