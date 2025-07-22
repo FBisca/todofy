@@ -1,17 +1,31 @@
 import { Task } from '@repo/domain/model/task'
+import { Error, TaskDataSource } from '../datasource/task-datasource.js'
+import { Result } from '../lib/result.js'
 
-export async function getTasks() {
-  // Fetch tasks from DB or service
+interface TaskRepository {
+  getTasks(): Promise<Result<Task[], Error>>
+  createTask(task: Task): Promise<Result<Task, Error>>
+  updateTask(id: string, data: Partial<Task>): Promise<Result<Task | undefined, Error>>
 }
 
-export async function createTask(data: { name: string; description: string }) {
-  // Create and return new task
+class TaskRepositoryImpl implements TaskRepository {
+  private taskDataSource: TaskDataSource
+
+  constructor(taskDataSource: TaskDataSource) {
+    this.taskDataSource = taskDataSource
+  }
+
+  async getTasks() {
+    return this.taskDataSource.getAllTasks()
+  }
+
+  async createTask(task: Task) {
+    return this.taskDataSource.createTask(task)
+  }
+
+  async updateTask(id: string, data: Partial<Task>) {
+    return this.taskDataSource.updateTask(id, data)
+  }
 }
 
-export async function updateTask(id: string, data: Partial<Task>) {
-  // Update and return task
-}
-
-export async function deleteTask(id: string) {
-  // Delete and return result
-}
+export { TaskRepositoryImpl, type TaskRepository }

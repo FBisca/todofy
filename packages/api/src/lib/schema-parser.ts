@@ -21,7 +21,7 @@ type SchemaInvalidError = {
 
 type ParserError = InvalidJsonError | SchemaInvalidError
 
-async function json<T extends AnySchema>(request: Request, schema: T): Promise<Result<z.infer<T>, ParserError>> {
+async function parseSchema<T extends AnySchema>(request: Request, schema: T): Promise<Result<z.infer<T>, ParserError>> {
   try {
     const body = (await request.json()) as T
     const result = schema.safeParse(body)
@@ -44,4 +44,4 @@ async function json<T extends AnySchema>(request: Request, schema: T): Promise<R
   }
 }
 
-export { json }
+export { parseSchema }

@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from 'vitest'
 import { z } from 'zod'
-import { json } from '../schema-parser.js'
+import { parseSchema } from '../schema-parser.js'
 
 function createRequest(body: () => Promise<unknown>) {
   const req = new Request('http://localhost', { method: 'POST' })
@@ -8,12 +8,12 @@ function createRequest(body: () => Promise<unknown>) {
   return req
 }
 
-describe('schema-parser', () => {
+describe('parseSchema', () => {
   const schema = z.object({ name: z.string(), age: z.number() })
 
   test('parses valid JSON and schema', async () => {
     const req = createRequest(async () => ({ name: 'Alice', age: 30 }))
-    const result = await json(req, schema)
+    const result = await parseSchema(req, schema)
 
     expect(result.ok).toBe(true)
     if (result.ok) {
@@ -23,7 +23,7 @@ describe('schema-parser', () => {
 
   test('returns schema-invalid for invalid schema', async () => {
     const req = createRequest(async () => ({ name: 'Alice', age: 'not-a-number' }))
-    const result = await json(req, schema)
+    const result = await parseSchema(req, schema)
 
     expect(result.ok).toBe(false)
     if (!result.ok) {
@@ -39,7 +39,7 @@ describe('schema-parser', () => {
       throw new Error('Invalid JSON')
     })
 
-    const result = await json(req, schema)
+    const result = await parseSchema(req, schema)
     expect(result.ok).toBe(false)
     if (!result.ok) {
       expect(result.error.type).toBe('invalid-json')
