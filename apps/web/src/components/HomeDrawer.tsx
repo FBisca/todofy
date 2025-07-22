@@ -25,7 +25,7 @@ function HomeDrawer({ children, locale, t }: Props) {
   }, [])
 
   return (
-    <div className="flex">
+    <div className="flex h-full items-stretch">
       <div
         className={cn(
           'pointer-events-none fixed inset-0 bg-black/5 opacity-0 transition-all duration-300 ease-in-out lg:hidden',
@@ -80,10 +80,7 @@ function HomeDrawer({ children, locale, t }: Props) {
           </ol>
         </div>
       </aside>
-      <main className="flex-1 pt-[var(--navbar-height)]">
-        {children}
-        <br />
-      </main>
+      <main className="mt-[var(--navbar-height)] flex flex-1 flex-col">{children}</main>
     </div>
   )
 }

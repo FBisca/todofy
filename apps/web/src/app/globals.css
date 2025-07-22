@@ -2,3 +2,10 @@
 @import '@repo/ui/globals.css';
 
 @source "../**/*.{ts,tsx}";
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}

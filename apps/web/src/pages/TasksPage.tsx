@@ -1,10 +1,8 @@
 'use client'
 
 import { AddTaskButton } from '@/components/AddTaskButton'
-import { HomeDrawer } from '@/components/HomeDrawer'
-import { NavBar } from '@/components/NavBar'
 import { TaskList } from '@/components/TaskList'
-import { Dictionary, Locale } from '@/i18n'
+import { Dictionary } from '@/i18n'
 import { arraySwap } from '@dnd-kit/sortable'
 import { Task, TaskStatus } from '@repo/domain/model/task'
 import { PageTitle } from '@repo/ui/components/page-title'
@@ -12,11 +10,10 @@ import { useCallback, useState } from 'react'
 import { toast } from 'sonner'
 
 interface Props {
-  locale: Locale
   t: Dictionary
 }
 
-function TasksPage({ locale, t }: Props) {
+function TasksPage({ t }: Props) {
   const [tasks, setTasks] = useState<Task[]>([
     {
       id: '1',
@@ -71,49 +68,42 @@ function TasksPage({ locale, t }: Props) {
   }, [])
 
   return (
-    <div>
-      <HomeDrawer t={t} locale={locale}>
-        <div>
-          <NavBar locale={locale} />
-          <div className="flex p-4">
-            <div className="mx-auto h-20 w-full max-w-[800px] space-y-4">
-              <PageTitle>{t.home.title}</PageTitle>
-              <TaskList
-                onMove={(from, to) => {
-                  setTasks((prev) => {
-                    const fromIndex = prev.findIndex((task) => task.id === from.id)
-                    const toIndex = prev.findIndex((task) => task.id === to.id)
+    <>
+      <div className="mx-auto h-full w-full max-w-[800px] space-y-4">
+        <PageTitle>{t.tasks.title}</PageTitle>
+        <TaskList
+          onMove={(from, to) => {
+            setTasks((prev) => {
+              const fromIndex = prev.findIndex((task) => task.id === from.id)
+              const toIndex = prev.findIndex((task) => task.id === to.id)
 
-                    return arraySwap(prev, fromIndex, toIndex)
-                  })
-                }}
-                onChange={onTaskChange}
-                onDuplicate={onTaskDuplicate}
-                onDelete={onTaskDeleted}
-                onCheckChange={(e) => {
-                  if (e.completed === true) {
-                    onTaskCompleted(e)
-                  } else {
-                    onTaskChange(e)
-                    setTasks((prev) => prev.map((task) => (task.id === e.id ? e : task)))
-                  }
-                }}
-                tasks={tasks}
-                t={t}
-              />
-              <div>
-                <AddTaskButton
-                  t={t}
-                  onAdd={(task) => {
-                    setTasks((prev) => [...prev, task])
-                  }}
-                />
-              </div>
-            </div>
-          </div>
+              return arraySwap(prev, fromIndex, toIndex)
+            })
+          }}
+          onChange={onTaskChange}
+          onDuplicate={onTaskDuplicate}
+          onDelete={onTaskDeleted}
+          onCheckChange={(e) => {
+            if (e.completed === true) {
+              onTaskCompleted(e)
+            } else {
+              onTaskChange(e)
+              setTasks((prev) => prev.map((task) => (task.id === e.id ? e : task)))
+            }
+          }}
+          tasks={tasks}
+          t={t}
+        />
+        <div>
+          <AddTaskButton
+            t={t}
+            onAdd={(task) => {
+              setTasks((prev) => [...prev, task])
+            }}
+          />
         </div>
-      </HomeDrawer>
-    </div>
+      </div>
+    </>
   )
 }
 

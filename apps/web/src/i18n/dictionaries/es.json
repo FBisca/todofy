@@ -3,8 +3,8 @@
     "title": "Todofy | Tu gestor de listas de tareas",
     "description": "Tu gestor de listas de tareas"
   },
-  "home": {
-    "title": "Inicio"
+  "tasks": {
+    "title": "Tareas"
   },
   "menu": {
     "tasks": "Tareas",

@@ -2,6 +2,8 @@ import i18n, { Locale, getDictionary } from '@/i18n'
 import LocaleProvider from '@/providers/locale-provider'
 import { Toaster } from '@repo/ui/components/sonner'
 
+import { HomeDrawer } from '@/components/HomeDrawer'
+import { NavBar } from '@/components/NavBar'
 import type { Metadata, Viewport } from 'next'
 import { Lato } from 'next/font/google'
 import React from 'react'
@@ -47,7 +49,14 @@ async function RootLayout({ children, params }: Readonly<Props>) {
     <html lang={locale} suppressHydrationWarning>
       <body className={`${lato.variable} antialiased`}>
         <LocaleProvider dictionary={dictionary} locale={locale}>
-          {children}
+          <HomeDrawer t={dictionary} locale={locale}>
+            <div className="flex flex-1 flex-col">
+              <NavBar locale={locale} />
+              <div className="flex flex-1 flex-col overflow-auto p-4 after:block after:h-8 after:content-['']">
+                {children}
+              </div>
+            </div>
+          </HomeDrawer>
         </LocaleProvider>
         <Toaster />
       </body>
