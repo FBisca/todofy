@@ -1,0 +1,22 @@
+{
+  "name": "@repo/domain",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "lint": "eslint . --max-warnings 0"
+  },
+  "dependencies": {
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@turbo/gen": "^2.4.2",
+    "@types/node": "^20",
+    "typescript": "^5.7.3"
+  },
+  "exports": {
+    "./*": "./src/*.ts"
+  }
+}
