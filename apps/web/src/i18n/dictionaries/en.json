@@ -15,6 +15,11 @@
     "title": "Your task name",
     "description": "Your task description",
     "cancel": "Cancel",
-    "add": "Add Task"
+    "add": "Add Task",
+    "addNew": "Add new task"
+  },
+  "task": {
+    "title": "Task Name",
+    "description": "Task Description"
   }
 }

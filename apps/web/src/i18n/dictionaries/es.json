@@ -15,6 +15,11 @@
     "title": "Nombre de la tarea",
     "description": "Descripción de la tarea",
     "cancel": "Cancelar",
-    "add": "Añadir tarea"
+    "add": "Añadir tarea",
+    "addNew": "Añadir nueva tarea"
+  },
+  "task": {
+    "title": "Nombre de la tarea",
+    "description": "Descripción de la tarea"
   }
 }

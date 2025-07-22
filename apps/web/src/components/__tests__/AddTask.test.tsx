@@ -8,7 +8,7 @@ import { AddTask } from '../AddTask'
 describe('AddTask', () => {
   test('WHEN user inputs data THEN should change the button state based on name and description', async () => {
     const dictionary = await getDictionary('en')
-    render(<AddTask t={dictionary} />)
+    render(<AddTask t={dictionary} onCancel={() => {}} />)
 
     const addButton = screen.getByRole('button', { name: dictionary.addTask.add })
     const nameInput = screen.getByPlaceholderText(dictionary.addTask.title)

@@ -14,12 +14,12 @@ interface Props {
 
 function MenuItem({ title, path, icon, locale }: Props) {
   const pathname = usePathname()
-  const pathWithLocale = `/${locale}${path}`
+  const pathWithLocale = `/${locale}${path === '/' ? '' : path}`
   const isActive = pathname === path || pathname === pathWithLocale
   return (
     <li
-      className={cn('hover:bg-primary/5 rounded transition-colors duration-300 ease-in-out', {
-        'bg-primary text-primary-foreground hover:bg-primary/80': isActive,
+      className={cn('hover:bg-primary/5 hover:text-primary rounded transition-colors duration-300 ease-in-out', {
+        'bg-primary/10 text-primary hover:bg-primary/20': isActive,
       })}
     >
       <Link href={path} passHref className="flex items-center gap-2 p-3">

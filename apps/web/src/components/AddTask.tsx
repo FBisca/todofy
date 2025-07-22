@@ -13,9 +13,10 @@ import { z } from 'zod'
 interface Props {
   className?: string
   t: Dictionary
+  onCancel: () => void
 }
 
-function AddTask({ className, t }: Props) {
+function AddTask({ className, t, onCancel }: Props) {
   const schema = useMemo(
     () =>
       z.object({
@@ -51,6 +52,7 @@ function AddTask({ className, t }: Props) {
           <Input
             variant="ghost"
             size="sm"
+            autoFocus
             placeholder={t.addTask.title}
             className="placeholder:text-muted-foreground/70 font-semibold"
             {...register('name')}
@@ -64,7 +66,7 @@ function AddTask({ className, t }: Props) {
           />
         </div>
         <div className="flex justify-end gap-3 border border-t px-3 py-2">
-          <Button variant="ghost">
+          <Button variant="ghost" onClick={onCancel}>
             <X className="h-4 w-4 md:hidden" />
             <span className="hidden md:block">{t.addTask.cancel}</span>
           </Button>

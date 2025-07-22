@@ -4,7 +4,7 @@ import { cn } from '@repo/ui/lib/utils'
 import { cva, VariantProps } from 'class-variance-authority'
 
 const variants = cva(
-  'file:text-foreground placeholder:text-muted-foreground flex w-full min-w-0 rounded-md border bg-transparent text-base outline-none transition-[color,box-shadow] file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',
+  'file:text-foreground placeholder:text-muted-foreground flex w-full min-w-0 rounded-md border bg-transparent outline-none transition-[color,box-shadow] file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',
   {
     variants: {
       variant: {
@@ -13,8 +13,10 @@ const variants = cva(
         ghost: 'bg-transparent border-none hover:bg-transparent hover:text-accent-foreground',
       },
       size: {
-        default: 'h-9 px-3 py-1',
-        sm: 'h-8 px-2 py-1',
+        default: 'h-9 px-3 py-1 text-base',
+        sm: 'h-8 px-2 py-1 text-base',
+        taskTitle: 'h-6 px-0 py-0 text-lg lg:text-sm',
+        taskDescription: 'h-6 px-0 py-0 text-base lg:text-xs',
       },
     },
     defaultVariants: {
