@@ -106,11 +106,11 @@ pnpm run e2e
 ```
 todo/
   apps/
-    web/           # Next.js frontend
-    api/           # API (file-based for demo)
+    web/           # Next.js frontend and API routes
   packages/
     domain/        # Shared types/models
     ui/            # Shared UI components
+    api/           # API Pure Node
   config/          # Shared config (eslint, tailwind, tsconfig)
 ```
 
