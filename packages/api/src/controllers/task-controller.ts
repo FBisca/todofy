@@ -1,19 +1,38 @@
-import { parseSchema } from '@repo/api/lib/schema-parser'
+import { parseSchema, parseSchemaQuery } from '@repo/api/lib/schema-parser'
 import { TaskRepository } from '@repo/api/repository/task-repository'
-import { TaskStatus } from '@repo/domain/model/task'
+import { Task, TaskStatus } from '@repo/domain/model/task'
 import { CreateTaskRequest } from '@repo/domain/request/create-task-request'
+import { GetTasksQuery } from '@repo/domain/request/get-task-query'
 import { UpdateTaskRequest } from '@repo/domain/request/update-task-request'
 
 class TaskController {
   constructor(private readonly repository: TaskRepository) {}
 
-  async getTasks(): Promise<Response> {
+  async getTasks(searchParams: URLSearchParams): Promise<Response> {
+    const parseResult = parseSchemaQuery(searchParams, GetTasksQuery)
+    if (!parseResult.ok) {
+      return new Response(null, { status: 400 })
+    }
+
+    const { status, completed } = parseResult.value
     const result = await this.repository.getTasks()
     if (!result.ok) {
       return new Response(null, { status: 500 })
     }
 
-    return new Response(JSON.stringify(result.value), { status: 200 })
+    const filteredTasks = result.value.filter((task: Task) => {
+      if (status && task.status !== status) {
+        return false
+      }
+
+      if (completed !== undefined && task.completed !== completed) {
+        return false
+      }
+
+      return true
+    })
+
+    return new Response(JSON.stringify(filteredTasks), { status: 200 })
   }
 
   async createTask(request: Request): Promise<Response> {

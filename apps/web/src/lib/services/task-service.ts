@@ -29,7 +29,7 @@ const taskService = {
     })
 
     if (!response.ok) {
-      throw new Error('Failed to create task')
+      throw new Error('Failed to update task')
     }
 
     return await response.json()
@@ -46,20 +46,16 @@ const taskService = {
   },
 
   getTasks: async (filters?: GetTasksFilters): Promise<Task[]> => {
-    const response = await fetch(`/api/tasks`)
-    const tasks = await response.json()
+    const queryParams = new URLSearchParams()
+    if (filters?.status) {
+      queryParams.set('status', filters.status)
+    }
+    if (filters?.completed !== undefined) {
+      queryParams.set('completed', filters.completed.toString())
+    }
 
-    return tasks.filter((task: Task) => {
-      if (filters?.status && task.status !== filters.status) {
-        return false
-      }
-
-      if (filters?.completed !== undefined && task.completed !== filters.completed) {
-        return false
-      }
-
-      return true
-    })
+    const response = await fetch(`/api/tasks?${queryParams.toString()}`)
+    return await response.json()
   },
 }
 

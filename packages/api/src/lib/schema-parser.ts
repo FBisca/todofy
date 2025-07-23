@@ -53,4 +53,56 @@ async function parseSchema<T extends AnySchema>(request: Request, schema: T): Pr
   }
 }
 
-export { parseSchema }
+/**
+ * This function is used to parse the query params and return a result
+ * it takes the advantage of the zod library to validate the URLSearchParams
+ * and return an inferred type result object with the parsed data or an error
+ *
+ * @param searchParams - The URLSearchParams object
+ * @param schema - The schema to parse the URLSearchParams against
+ * @returns A result object with the parsed data or an error
+ */
+function parseSchemaQuery<T extends ZodObject<ZodRawShape>>(
+  searchParams: URLSearchParams,
+  schema: T,
+): Result<z.infer<T>, ParserError> {
+  const keys = Object.keys(schema.shape)
+  const query: Record<string, unknown> = {}
+  for (const key of keys) {
+    const queryValue = searchParams.get(key)
+    if (queryValue) {
+      query[key] = queryValue
+    }
+  }
+
+  const result = z.instanceof(URLSearchParams).transform(searchParamsToValues).pipe(schema).safeParse(searchParams)
+  if (result.success === false) {
+    return err({
+      type: 'schema-invalid',
+      message: result.error.message,
+      issues: result.error.issues,
+    })
+  }
+
+  return ok(result.data)
+}
+
+function searchParamsToValues(searchParams: URLSearchParams): Record<string, unknown> {
+  return Array.from(searchParams.keys()).reduce(
+    (record, key) => {
+      const values = searchParams.getAll(key).map(safeParseJSON)
+      return { ...record, [key]: values.length > 1 ? values : values[0] }
+    },
+    {} as Record<string, unknown>,
+  )
+}
+
+function safeParseJSON(string: string): unknown {
+  try {
+    return JSON.parse(string)
+  } catch {
+    return decodeURI(string)
+  }
+}
+
+export { parseSchema, parseSchemaQuery }

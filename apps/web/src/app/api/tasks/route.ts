@@ -6,7 +6,6 @@ export async function POST(request: NextRequest): Promise<Response> {
   return executeApiRequest(() => app.taskController.createTask(request))
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function GET(_request: NextRequest): Promise<Response> {
-  return executeApiRequest(() => app.taskController.getTasks())
+export async function GET(request: NextRequest): Promise<Response> {
+  return executeApiRequest(() => app.taskController.getTasks(request.nextUrl.searchParams))
 }
