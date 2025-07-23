@@ -95,9 +95,9 @@ pnpm run e2e
 - **TypeScript everywhere** for safety and DX.
 - **Toast notifications** for user feedback (using `sonner`).
 - **Drag-and-drop** for task reordering (using `@dnd-kit`).
-- **Debounced updates** to avoid excessive API calls.
+- **Debounced updates** Manually implemented using pure React to avoid excessive API calls.
 - **Undo actions** for destructive operations.
-- **Extensible i18n**: Easily add more languages by copying a dictionary file.
+- **Extensible i18n**: Using built-in NextJS dynamic routing to implement an extensible localization solution.
 
 ---
 
@@ -116,13 +116,14 @@ todo/
 
 ---
 
-## Possible Improvements
+## Improvements
 
-- Use a proper backend framework (like NestJS, Express, or Fastify) instead of developing everything from scratch, adding it as a separated module
-- Add more functionalities in Completed / Archived pages
-- Add stores to encapsulate view logic with options like Zustand or any other state management framework
-- Improve global theming
-- Extract shared configs there were used only in the `apps/web` like Playwright config and Docker
+- Use a proper backend framework (like NestJS, Express, or Fastify) instead of developing everything from scratch, adding it as a separated module.
+- Add Paginated pages both on the Front-End and the Back-End to increase performance.
+- Add more functionalities in Completed / Archived pages like unarchiving or archiving completed tasks.
+- Add stores to encapsulate view logic with options like Zustand or any other state management framework.
+- Improve global theming.
+- Extract shared configs there were used only in the `apps/web` like Playwright config and Docker.
 
 ---
 
