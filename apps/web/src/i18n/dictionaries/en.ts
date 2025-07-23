@@ -23,6 +23,8 @@ export default {
       taskDeleted: 'Task deleted',
       taskDuplicated: 'Task duplicated',
       taskCreated: 'Task created',
+      taskCreationFailed: 'Task creation failed',
+      taskUpdateFailed: 'Task update failed',
     },
     actions: {
       duplicate: 'Duplicate',

@@ -52,6 +52,9 @@ function TasksPage({ t }: Props) {
         },
       })
     },
+    onError: () => {
+      toast.error(t.taskList.messages.taskUpdateFailed)
+    },
   })
 
   const { mutate: createTask } = useMutation({
@@ -66,6 +69,9 @@ function TasksPage({ t }: Props) {
       setTasks((prev) => [...prev, newTask])
 
       toast.success(action === 'create' ? t.taskList.messages.taskCreated : t.taskList.messages.taskDuplicated)
+    },
+    onError: () => {
+      toast.error(t.taskList.messages.taskCreationFailed)
     },
   })
 

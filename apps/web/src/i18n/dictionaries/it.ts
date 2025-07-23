@@ -23,6 +23,8 @@ export default {
       taskDeleted: 'Attività eliminata',
       taskDuplicated: 'Attività duplicata',
       taskCreated: 'Attività creata',
+      taskCreationFailed: "Errore nella creazione dell'attività",
+      taskUpdateFailed: "Errore nell'aggiornamento dell'attività",
     },
     actions: {
       duplicate: 'Duplica',

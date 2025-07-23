@@ -23,6 +23,8 @@ export default {
       taskDeleted: 'Tarea eliminada',
       taskDuplicated: 'Tarea duplicada',
       taskCreated: 'Tarea creada',
+      taskCreationFailed: 'Error al crear la tarea',
+      taskUpdateFailed: 'Error al actualizar la tarea',
     },
     actions: {
       duplicate: 'Duplicar',
