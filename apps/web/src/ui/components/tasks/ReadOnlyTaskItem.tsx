@@ -14,10 +14,12 @@ interface Props {
 
 function ReadOnlyTaskItem({ task, t }: Props) {
   const locale = useLocale()
+
   const relativeTimeFormat = useMemo(
     () => new Intl.RelativeTimeFormat(locale.locale, { numeric: 'auto' }),
     [locale.locale],
   )
+
   const completedAt = useMemo(() => {
     if (!task.completedAt) return null
     const formatted = relativeTimeFormat.format(
@@ -26,6 +28,7 @@ function ReadOnlyTaskItem({ task, t }: Props) {
     )
     return formatted.substring(0, 1).toUpperCase() + formatted.substring(1)
   }, [task.completedAt, relativeTimeFormat])
+
   return (
     <div className={cn('group flex w-full items-center gap-2 px-1 transition-opacity duration-300')}>
       <Checkbox className={'mt-2 size-4 self-start'} checked={task.completed} disabled data-testid="task-checkbox" />

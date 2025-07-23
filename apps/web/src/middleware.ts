@@ -16,8 +16,7 @@ export function middleware(request: NextRequest) {
   if (!requestLocale) {
     const locale = getLocale(request, locales)
     const queryString = query.toString()
-    // e.g. incoming request is /products
-    // The new URL is now /en-US/products
+
     const response = NextResponse.redirect(
       new URL(
         `/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}${queryString ? '?' + queryString : ''}`,

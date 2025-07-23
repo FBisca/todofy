@@ -13,10 +13,9 @@ interface Props {
   className?: string
   t: Dictionary
   onAdd: (task: { name: string; description: string }) => void
-  onAddingChange?: (isAdding: boolean) => void
 }
 
-function AddTaskButton({ className, t, onAdd, onAddingChange }: Props) {
+function AddTaskButton({ className, t, onAdd }: Props) {
   const [isAdding, setIsAdding] = useState(false)
   const [isMac, setIsMac] = useState(false)
 
@@ -42,12 +41,6 @@ function AddTaskButton({ className, t, onAdd, onAddingChange }: Props) {
       setIsMac(/Mac|iPod|iPhone|iPad/.test(navigator.userAgent))
     }
   }, [])
-
-  useEffect(() => {
-    if (onAddingChange) {
-      onAddingChange(isAdding)
-    }
-  }, [isAdding, onAddingChange])
 
   return (
     <div className={cn(className)}>
