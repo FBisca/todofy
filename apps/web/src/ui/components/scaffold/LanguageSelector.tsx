@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@repo/ui/components/dropdown-menu'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 interface Props {
   locale: Locale
@@ -23,14 +23,19 @@ const languages: Record<Locale, { name: string; flag: string }> = {
     name: 'Español',
     flag: '/sp.png',
   },
+  it: {
+    name: 'Italiano',
+    flag: '/it.png',
+  },
 }
 
 function LanguageSelector({ locale }: Props) {
   const router = useRouter()
+  const pathname = usePathname()
   const language = languages[locale]
 
-  const handleLanguageChange = (locale: string) => {
-    router.push(`/${locale}`)
+  const handleLanguageChange = (newLocale: string) => {
+    router.push(pathname.replace(`/${locale}`, `/${newLocale}`))
   }
   return (
     <DropdownMenu>

@@ -44,5 +44,6 @@ export default {
   task: {
     title: 'Nombre de la tarea',
     description: 'Descripción de la tarea',
+    completedAt: 'Completada:',
   },
 }

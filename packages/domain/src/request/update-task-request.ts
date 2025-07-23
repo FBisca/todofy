@@ -6,4 +6,5 @@ export const UpdateTaskRequest = z.object({
   description: z.string().min(1).optional(),
   completed: z.boolean().optional(),
   status: z.nativeEnum(TaskStatus).optional(),
+  completedAt: z.coerce.date().optional(),
 })

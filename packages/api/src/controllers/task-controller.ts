@@ -44,12 +44,13 @@ class TaskController {
       return new Response(null, { status: 400 })
     }
 
-    const { name, description, completed, status } = body.value
+    const { name, description, completed, status, completedAt } = body.value
     const result = await this.repository.updateTask(id, {
       name,
       description,
       completed,
       status,
+      completedAt,
     })
 
     if (!result.ok) {

@@ -1,6 +1,6 @@
 const config = {
   defaultLocale: 'en',
-  locales: ['en', 'es'],
+  locales: ['en', 'es', 'it'],
 } as const
 
 // We enumerate all dictionaries here for better linting and typescript support
@@ -8,6 +8,7 @@ const config = {
 const dictionaries = {
   en: () => import('./dictionaries/en').then((module) => module.default),
   es: () => import('./dictionaries/es').then((module) => module.default),
+  it: () => import('./dictionaries/it').then((module) => module.default),
 }
 
 type Locale = (typeof config)['locales'][number]

@@ -18,7 +18,7 @@ function ReadOnlyTaskList({ tasks, t }: Props) {
   return (
     <>
       {tasks.map((e) => (
-        <ReadOnlyTaskItem key={e.id} task={e} />
+        <ReadOnlyTaskItem key={e.id} task={e} t={t} />
       ))}
     </>
   )

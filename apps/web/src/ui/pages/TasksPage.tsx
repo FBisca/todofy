@@ -36,7 +36,7 @@ function TasksPage({ t }: Props) {
 
   const { mutate: completeTask } = useMutation({
     mutationFn: (task: Task) => {
-      const completedTask = { ...task, completed: true }
+      const completedTask = { ...task, completed: true, completedAt: new Date() }
 
       setTasks((prev) => prev.filter((e) => e.id !== task.id))
 
