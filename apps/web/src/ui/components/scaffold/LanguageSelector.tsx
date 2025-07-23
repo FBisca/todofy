@@ -37,6 +37,9 @@ function LanguageSelector({ locale }: Props) {
   const handleLanguageChange = (newLocale: string) => {
     router.push(pathname.replace(`/${locale}`, `/${newLocale}`))
   }
+
+  if (!language) return <></>
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="cursor-pointer">

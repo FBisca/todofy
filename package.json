@@ -11,6 +11,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
     "prettier": "prettier --check .",
+    "docker:dev": "docker compose up dev --build",
     "prettier:fix": "prettier --write ."
   },
   "dependencies": {

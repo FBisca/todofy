@@ -8,6 +8,7 @@
 
 /test-results
 task.json
+task-e2e.json
 
 # testing
 /coverage

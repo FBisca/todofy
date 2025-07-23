@@ -15,6 +15,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  output: 'standalone',
   env: getEnv(),
   transpilePackages: ['@repo/ui'],
 }
