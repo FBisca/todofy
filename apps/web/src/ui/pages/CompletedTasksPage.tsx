@@ -16,7 +16,14 @@ interface Props {
 function CompletedTasksPage({ t }: Props) {
   const { data: tasks, isLoading } = useQuery({
     queryKey: [QueryKeys.completedTasks],
-    queryFn: () => taskService.getTasks({ completed: true, status: TaskStatus.ACTIVE }),
+    queryFn: async () => {
+      const tasks = await taskService.getTasks({ completed: true, status: TaskStatus.ACTIVE })
+      return tasks.sort((a, b) => {
+        if (!a.completedAt || !b.completedAt) return 0
+
+        return new Date(b.completedAt).getTime() - new Date(a.completedAt).getTime()
+      })
+    },
   })
 
   return (
