@@ -6,6 +6,7 @@ dotenv.config({ path: '.env.test' })
 export default defineConfig({
   testDir: './tests/e2e/specs',
   timeout: 30000,
+  workers: 1,
   retries: 2,
   use: {
     baseURL: 'http://localhost:3000',

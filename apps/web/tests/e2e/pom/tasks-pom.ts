@@ -51,7 +51,7 @@ export class TaskPom {
 
   async completeFirstTask() {
     const firstCheckBox = this.taskCheckbox.first()
-    await firstCheckBox.setChecked(true)
+    await firstCheckBox.click()
   }
 
   async deleteFirstTask() {

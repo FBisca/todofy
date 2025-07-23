@@ -1,6 +1,6 @@
 # Todofy - Fullstack Code Challenge
 
-Todofy is a fullstack To-Do list built as a code challenge for a Fullstack Developer position. It demonstrates best practices React, Next.js, TypeScript, API design, testing, and internationalization.
+Todofy is a fullstack To-Do list built to demonstrates best practices in React, Next.js, TypeScript, API design, Monorepo, testing, and internationalization.
 
 ---
 
@@ -88,6 +88,7 @@ pnpm run e2e
 
 - **Unit/Component:** Vitest + Testing Library for fast, isolated tests.
 - **E2E:** Playwright for a robust POM structure tests.
+  - Since I decided to do a full E2E testing solution and the API Filesystem is very limited and shared between contexts, I opted to make the Playwright execution sequentially instead of parallel, so the when a worker delete the file it doesn't affect other workers. A more robust solution would be creating client identifiers and attributing a session of the file for each.
 
 ### **Other Notable Choices**
 

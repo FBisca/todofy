@@ -1,5 +1,6 @@
 import { err, ok, Result } from '@repo/api/lib/result'
 import { Task } from '@repo/domain/model/task'
+import { Mutex } from 'async-mutex'
 import { promises as fs } from 'fs'
 import path from 'path'
 
@@ -24,6 +25,7 @@ interface TaskDataSource {
 }
 
 class FilesystemTaskDataSource implements TaskDataSource {
+  private fileMutex = new Mutex()
   private filePath: string
   private useMemoryCache: boolean
 
@@ -80,65 +82,71 @@ class FilesystemTaskDataSource implements TaskDataSource {
   }
 
   async getAllTasks(): Promise<Result<Task[], Error>> {
-    try {
-      const taskMap = this.shouldUseMemoryCache() ? this.memoryCache : await this.loadTasks()
+    return this.fileMutex.runExclusive(async () => {
+      try {
+        const taskMap = this.shouldUseMemoryCache() ? this.memoryCache : await this.loadTasks()
 
-      return ok(Array.from(taskMap.values()))
-    } catch (error) {
-      return err<Error>({
-        type: 'task-datasource-error',
-        message: 'Failed to get all tasks',
-        cause: error,
-      })
-    }
+        return ok(Array.from(taskMap.values()))
+      } catch (error) {
+        return err<Error>({
+          type: 'task-datasource-error',
+          message: 'Failed to get all tasks',
+          cause: error,
+        })
+      }
+    })
   }
 
   async createTask(task: Task): Promise<Result<Task, Error>> {
-    try {
-      const taskMap = this.shouldUseMemoryCache() ? this.memoryCache : await this.loadTasks()
-      if (taskMap.has(task.id)) {
+    return this.fileMutex.runExclusive(async () => {
+      try {
+        const taskMap = this.shouldUseMemoryCache() ? this.memoryCache : await this.loadTasks()
+        if (taskMap.has(task.id)) {
+          return err<Error>({
+            type: 'task-already-exists',
+            message: 'Task already exists',
+            cause: task,
+          })
+        }
+
+        taskMap.set(task.id, task)
+
+        await this.saveTasks(Array.from(taskMap.values()))
+        return ok(task)
+      } catch (error) {
         return err<Error>({
-          type: 'task-already-exists',
-          message: 'Task already exists',
-          cause: task,
+          type: 'task-datasource-error',
+          message: 'Failed to create task',
+          cause: error,
         })
       }
-
-      taskMap.set(task.id, task)
-
-      await this.saveTasks(Array.from(taskMap.values()))
-      return ok(task)
-    } catch (error) {
-      return err<Error>({
-        type: 'task-datasource-error',
-        message: 'Failed to create task',
-        cause: error,
-      })
-    }
+    })
   }
 
   async updateTask(id: string, updates: Partial<Task>): Promise<Result<Task | undefined, Error>> {
-    try {
-      const existingTask = await this.getTask(id)
-      if (!existingTask) {
-        return ok(undefined)
+    return this.fileMutex.runExclusive(async () => {
+      try {
+        const existingTask = await this.getTask(id)
+        if (!existingTask) {
+          return ok(undefined)
+        }
+
+        const updatedTask = { ...existingTask, ...updates }
+
+        const tasksMap = this.shouldUseMemoryCache() ? this.memoryCache : await this.loadTasks()
+        tasksMap.set(id, updatedTask)
+
+        await this.saveTasks(Array.from(tasksMap.values()))
+
+        return ok(updatedTask)
+      } catch (error) {
+        return err<Error>({
+          type: 'task-datasource-error',
+          message: 'Failed to update task',
+          cause: error,
+        })
       }
-
-      const updatedTask = { ...existingTask, ...updates }
-
-      const tasksMap = this.shouldUseMemoryCache() ? this.memoryCache : await this.loadTasks()
-      tasksMap.set(id, updatedTask)
-
-      await this.saveTasks(Array.from(tasksMap.values()))
-
-      return ok(updatedTask)
-    } catch (error) {
-      return err<Error>({
-        type: 'task-datasource-error',
-        message: 'Failed to update task',
-        cause: error,
-      })
-    }
+    })
   }
 }
 
