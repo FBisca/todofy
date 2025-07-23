@@ -40,7 +40,6 @@ function MutableTaskList({ tasks, onChange, onDelete, onCheckChange, onMove, onD
 
   const onDragOver = useCallback(
     (e: DragOverEvent) => {
-      console.log('drag over')
       const activeData = e.active.data.current as Task
       const overData = e.over?.data.current as Task
 
@@ -63,7 +62,7 @@ function MutableTaskList({ tasks, onChange, onDelete, onCheckChange, onMove, onD
       onDragEnd={() => setIsDragging(false)}
     >
       <SortableContext items={tasks}>
-        <div className="space-y-2" data-testid="task-list">
+        <div className="space-y-2">
           <AnimatePresence>
             {tasks.map((e) => (
               <motion.div

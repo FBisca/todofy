@@ -142,7 +142,7 @@ function TasksPage({ t }: Props) {
         <PageTitle>{t.tasks.title}</PageTitle>
 
         <LoadingTaskList isLoading={isLoading}>
-          <div className="space-y-4">
+          <div className="space-y-4" data-testid="task-list">
             <MutableTaskList
               onMove={(from, to) => {
                 setTasks((prev) => {

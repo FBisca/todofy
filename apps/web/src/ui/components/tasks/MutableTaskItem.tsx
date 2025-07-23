@@ -94,15 +94,15 @@ function MutableTaskItem({ task, anyDragging, onChange, onDelete, onCheckChange,
       </div>
 
       <DropdownMenu>
-        <DropdownMenuTrigger className="block md:hidden">
+        <DropdownMenuTrigger className="block md:hidden" data-testid="dropdown-menu-trigger">
           <EllipsisVertical className="h-4 w-4" />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem onClick={() => onDuplicate(task)}>
+          <DropdownMenuItem onClick={() => onDuplicate(task)} data-testid="dropdown-menu-duplicate-task">
             <Copy className="h-4 w-4" />
             <span>{t.taskList.actions.duplicate}</span>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => onDelete(task)}>
+          <DropdownMenuItem onClick={() => onDelete(task)} data-testid="dropdown-menu-delete-task">
             <Trash2 className="h-4 w-4" />
             <span>{t.taskList.actions.delete}</span>
           </DropdownMenuItem>
@@ -114,7 +114,7 @@ function MutableTaskItem({ task, anyDragging, onChange, onDelete, onCheckChange,
           hidden: anyDragging,
         })}
       >
-        <Button variant="ghost" size="icon" onClick={() => onDuplicate(task)}>
+        <Button variant="ghost" size="icon" onClick={() => onDuplicate(task)} data-testid="duplicate-task">
           <Copy className="h-4 w-4" />
           <span className="sr-only">{t.taskList.actions.duplicate}</span>
         </Button>

@@ -25,10 +25,13 @@ interface TaskDataSource {
 
 class FilesystemTaskDataSource implements TaskDataSource {
   private filePath: string
-  private taskMap: Map<string, Task> = new Map()
+  private useMemoryCache: boolean
 
-  constructor(filePath: string) {
+  private memoryCache: Map<string, Task> = new Map()
+
+  constructor(filePath: string, useMemoryCache: boolean = true) {
     this.filePath = path.resolve(filePath)
+    this.useMemoryCache = useMemoryCache
   }
 
   private async readFile() {
@@ -49,31 +52,38 @@ class FilesystemTaskDataSource implements TaskDataSource {
 
   private async loadTasks(): Promise<Map<string, Task>> {
     const tasks = await this.readFile()
-    return new Map(tasks.map((task) => [task.id, task]))
+    const taskMap = new Map(tasks.map((task) => [task.id, task]))
+
+    if (this.useMemoryCache) {
+      this.memoryCache = taskMap
+    }
+
+    return taskMap
   }
 
-  private async saveTasks(): Promise<void> {
-    const tasks = Array.from(this.taskMap.values())
+  private shouldUseMemoryCache(): boolean {
+    return this.useMemoryCache && this.memoryCache.size > 0
+  }
+
+  private async saveTasks(tasks: Task[]): Promise<void> {
     await fs.writeFile(this.filePath, JSON.stringify({ tasks }, null, 2), 'utf-8')
   }
 
   private async getTask(id: string): Promise<Task | undefined> {
-    const cachedTask = this.taskMap.get(id)
+    const cachedTask = this.shouldUseMemoryCache() ? this.memoryCache.get(id) : undefined
     if (cachedTask) {
       return cachedTask
     }
 
-    this.taskMap = await this.loadTasks()
-    return this.taskMap.get(id)
+    const taskMap = await this.loadTasks()
+    return taskMap.get(id)
   }
 
   async getAllTasks(): Promise<Result<Task[], Error>> {
     try {
-      if (this.taskMap.size === 0) {
-        this.taskMap = await this.loadTasks()
-      }
+      const taskMap = this.shouldUseMemoryCache() ? this.memoryCache : await this.loadTasks()
 
-      return ok(Array.from(this.taskMap.values()))
+      return ok(Array.from(taskMap.values()))
     } catch (error) {
       return err<Error>({
         type: 'task-datasource-error',
@@ -85,7 +95,8 @@ class FilesystemTaskDataSource implements TaskDataSource {
 
   async createTask(task: Task): Promise<Result<Task, Error>> {
     try {
-      if (this.taskMap.has(task.id)) {
+      const taskMap = this.shouldUseMemoryCache() ? this.memoryCache : await this.loadTasks()
+      if (taskMap.has(task.id)) {
         return err<Error>({
           type: 'task-already-exists',
           message: 'Task already exists',
@@ -93,8 +104,9 @@ class FilesystemTaskDataSource implements TaskDataSource {
         })
       }
 
-      this.taskMap.set(task.id, task)
-      await this.saveTasks()
+      taskMap.set(task.id, task)
+
+      await this.saveTasks(Array.from(taskMap.values()))
       return ok(task)
     } catch (error) {
       return err<Error>({
@@ -113,8 +125,11 @@ class FilesystemTaskDataSource implements TaskDataSource {
       }
 
       const updatedTask = { ...existingTask, ...updates }
-      this.taskMap.set(id, updatedTask)
-      await this.saveTasks()
+
+      const tasksMap = this.shouldUseMemoryCache() ? this.memoryCache : await this.loadTasks()
+      tasksMap.set(id, updatedTask)
+
+      await this.saveTasks(Array.from(tasksMap.values()))
 
       return ok(updatedTask)
     } catch (error) {

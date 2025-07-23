@@ -6,7 +6,7 @@ import { TaskRepositoryImpl } from '@repo/api/repository/task-repository'
 // Next.js doesnt support dependency injection out of the box, so we need to do it manually
 const tasksFilePath = process.env.TASKS_FILE_PATH!
 
-const taskDataSource = new FilesystemTaskDataSource(tasksFilePath)
+const taskDataSource = new FilesystemTaskDataSource(tasksFilePath, process.env.APP_ENV !== 'test')
 const taskRepository = new TaskRepositoryImpl(taskDataSource)
 const taskController = new TaskController(taskRepository)
 

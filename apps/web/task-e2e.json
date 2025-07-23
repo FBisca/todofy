@@ -1,0 +1,11 @@
+{
+  "tasks": [
+    {
+      "id": "8ec642dc-faa7-4531-abfd-809c19e6b214",
+      "name": "My new task",
+      "description": "My task description",
+      "completed": false,
+      "status": "active"
+    }
+  ]
+}
